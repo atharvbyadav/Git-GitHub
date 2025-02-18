@@ -10,10 +10,11 @@ This README.md file serves as a comprehensive guide to using Git and GitHub for 
 3. [Installing Git](#installing-git)
 4. [Basic Git Commands](#basic-git-commands)
 5. [Working with GitHub](#working-with-github)
-6. [Branching and Merging](#branching-and-merging)
-7. [Collaborating with Others](#collaborating-with-others)
-8. [Advanced Git Commands](#advanced-git-commands)
-9. [Best Practices](#best-practices)
+6. [Renaming a File and Pushing Changes](#renaming-a-file-and-pushing-changes)
+7. [Branching and Merging](#branching-and-merging)
+8. [Collaborating with Others](#collaborating-with-others)
+9. [Advanced Git Commands](#advanced-git-commands)
+10. [Best Practices](#best-practices)
 
 ---
 
@@ -131,6 +132,31 @@ Uploads local commits to GitHub.
 git pull
 ```
 Fetches and integrates changes from GitHub into your local repository.
+
+---
+
+## Renaming a File and Pushing Changes
+
+### Rename a File Locally
+```bash
+mv old_filename new_filename  # Linux/macOS
+ren old_filename new_filename  # Windows (Command Prompt)
+```
+
+### Stage the Renamed File
+```bash
+git add old_filename new_filename
+```
+
+### Commit the Change
+```bash
+git commit -m "Renamed file from old_filename to new_filename"
+```
+
+### Push the Change to the Main Branch
+```bash
+git push origin main
+```
 
 ---
 
