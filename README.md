@@ -117,6 +117,7 @@ Displays the commit history.
 ### Connect a Local Repository to GitHub
 ```bash
 git remote add origin <repository-url>
+git branch -M main
 git push -u origin main
 ```
 Links your local repository to a GitHub repository and pushes the code.
