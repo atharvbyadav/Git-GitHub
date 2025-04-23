@@ -3,7 +3,7 @@
 # 🚀 Git and GitHub Guide
 
 Welcome to your **all-in-one guide** to mastering Git and GitHub! Whether you're a beginner just starting out or an experienced developer brushing up on advanced features, this guide covers everything with easy-to-understand commands, explanations, and best practices.
-> Note That: 
+
 > 📌 *Version control is not just a tool — it's a discipline. The cleaner your history, the clearer your future.*
 
 ---
