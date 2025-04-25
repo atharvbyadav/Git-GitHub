@@ -8,7 +8,7 @@ Welcome to your **all-in-one guide** to mastering Git and GitHub! Whether you're
 
 ---
 <p align="center">
-  <img src="https://raw.githubusercontent.com/atharvbyadav/Git-GitHub/main/banner.png" alt="Mastering WSL" width="600" />
+  <img src="https://raw.githubusercontent.com/atharvbyadav/Git-GitHub/main/banner.png" alt="Mastering WSL" width="500" />
 </p>
 
 ---
