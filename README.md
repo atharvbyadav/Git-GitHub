@@ -7,9 +7,14 @@ Welcome to your **all-in-one guide** to mastering Git and GitHub! Whether you're
 > 📌 *Version control is not just a tool — it's a discipline. The cleaner your history, the clearer your future.*
 
 ---
+<p align="center">
+  <img src="https://raw.githubusercontent.com/atharvbyadav/Mastering-WSL/main/banner.png" alt="Mastering WSL" width="600" />
+</p>
+---
 
 ## 📚 Table of Contents
 
+- [](#)
 - [📚 Table of Contents](#-table-of-contents)
 - [🛠️ What is Git?](#️-what-is-git)
   - [🔑 Key Features:](#-key-features)
