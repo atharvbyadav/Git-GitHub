@@ -3,18 +3,13 @@
 # 🚀 Git and GitHub Guide
 
 Welcome to your **all-in-one guide** to mastering Git and GitHub! Whether you're a beginner just starting out or an experienced developer brushing up on advanced features, this guide covers everything with easy-to-understand commands, explanations, and best practices.
----
-<p align="center">
-  <img src="https://raw.githubusercontent.com/atharvbyadav/Mastering-WSL/main/banner.png" alt="Mastering WSL" width="600" />
-</p>
----
+
 > 📌 *Version control is not just a tool — it's a discipline. The cleaner your history, the clearer your future.*
 
 ---
 
 ## 📚 Table of Contents
 
-- [](#)
 - [📚 Table of Contents](#-table-of-contents)
 - [🛠️ What is Git?](#️-what-is-git)
   - [🔑 Key Features:](#-key-features)
