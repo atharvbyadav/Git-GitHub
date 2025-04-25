@@ -584,7 +584,7 @@ Have suggestions or want to contribute? Open a pull request — **collaboration 
 ---
 
 Ready to take the next step?  
-**Go build. Break things. Fix them. Version everything.**
+> **“Go build. Break things. Fix them. Version everything.”**
 
 Happy coding! 💻🔥
 
