@@ -19,7 +19,7 @@ Welcome to your **all-in-one guide** to mastering Git and GitHub! Whether you're
 
 ## 📚 Table of Contents
 
-- [� Git and GitHub Guide](#-git-and-github-guide)
+- [🚀 Git and GitHub Guide](#-git-and-github-guide)
   - [📚 Table of Contents](#-table-of-contents)
   - [🛠️ What is Git?](#️-what-is-git)
     - [🔑 Key Features:](#-key-features)

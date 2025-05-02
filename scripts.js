@@ -464,6 +464,28 @@ Happy coding! 💻🔥`;
             }
         });
     });
+
+    // Add copy buttons to code blocks
+    const codeBlocks = document.querySelectorAll('pre code');
+    codeBlocks.forEach(block => {
+        const pre = block.parentElement;
+        const copyButton = document.createElement('button');
+        copyButton.className = 'copy-button';
+        copyButton.innerHTML = '<i class="fas fa-copy"></i> Copy';
+        pre.appendChild(copyButton);
+
+        copyButton.addEventListener('click', () => {
+            const code = block.textContent;
+            navigator.clipboard.writeText(code).then(() => {
+                copyButton.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                copyButton.classList.add('copied');
+                setTimeout(() => {
+                    copyButton.innerHTML = '<i class="fas fa-copy"></i> Copy';
+                    copyButton.classList.remove('copied');
+                }, 2000);
+            });
+        });
+    });
 });
 
 function generateTOC(content) {
