@@ -1,4 +1,8 @@
 ---
+layout: default
+title: Git and GitHub Guide
+permalink: /
+---
 
 # 🚀 Git and GitHub Guide
 
@@ -157,7 +161,7 @@ git config --global alias.co checkout           # Shortcut for checkout
 
 ## 🧰 Basic Git Commands
 
-Here’s your day-to-day Git toolkit:
+Here's your day-to-day Git toolkit:
 
 ### 🔹 Initialize a Repository
 ```bash
@@ -467,7 +471,7 @@ git co main   # Instead of git checkout main
 ## 🤝 Collaborating with Others
 
 ### 🍴 Fork a Repository
-On GitHub, click **Fork** to create your own copy of someone else’s repo.
+On GitHub, click **Fork** to create your own copy of someone else's repo.
 
 > 💡 Great for contributing to open-source projects!
 
@@ -548,11 +552,11 @@ their version
 
 ✅ **Pull often** to avoid diverging too far from the main branch.
 
-✅ **Push regularly** so work isn’t lost.
+✅ **Push regularly** so work isn't lost.
 
-✅ **Don’t commit sensitive files** (like `.env`, API keys).
+✅ **Don't commit sensitive files** (like `.env`, API keys).
 
-✅ **Use `.gitignore`** to exclude files that shouldn't be tracked.
+✅ **Use `.gitignore** to exclude files that shouldn't be tracked.
 
 ---
 
@@ -568,13 +572,13 @@ node_modules/
 
 ## 🎯 Final Words
 
-You got it! Here’s a strong, inspiring, and professional ending to cap off your README:
+You got it! Here's a strong, inspiring, and professional ending to cap off your README:
 
 Mastering Git and GitHub is more than just learning commands — it's about developing a workflow that brings order, collaboration, and control to your development process. Whether you're building solo projects, working on a team, or contributing to open-source, **Git is your time machine, safety net, and collaboration tool all in one.**
 
-Take your time to **experiment, break things, fix them, and learn** — that’s how real growth happens.
+Take your time to **experiment, break things, fix them, and learn** — that's how real growth happens.
 
-> 🧠 *“The best developers aren’t those who never make mistakes — they’re the ones who track, manage, and learn from them.”*
+> 🧠 *"The best developers aren't those who never make mistakes — they're the ones who track, manage, and learn from them."*
 
 Keep pushing code, keep pulling knowledge, and let your commit history tell the story of your evolution as a developer. 🌱✨
 
@@ -589,7 +593,7 @@ Have suggestions or want to contribute? Open a pull request — **collaboration 
 ---
 
 Ready to take the next step?  
-> **“Go build. Break things. Fix them. Version everything.”**
+> **"Go build. Break things. Fix them. Version everything."**
 
 Happy coding! 💻🔥
 
