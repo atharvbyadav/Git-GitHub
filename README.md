@@ -1,9 +1,3 @@
----
-layout: default
-title: Git and GitHub Guide
-permalink: /
----
-
 # 🚀 Git and GitHub Guide
 
 Welcome to your **all-in-one guide** to mastering Git and GitHub! Whether you're a beginner just starting out or an experienced developer brushing up on advanced features, this guide covers everything with easy-to-understand commands, explanations, and best practices.
@@ -147,8 +141,8 @@ git --version
 Configure Git globally so it knows who you are:
 
 ```bash
-git config --global user.name "Jane Doe"
-git config --global user.email "jane@example.com"
+git config --global user.name "Pro User"
+git config --global user.email "User@example.com"
 ```
 
 ### Optional Goodies:

@@ -1,136 +1,1662 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Git and GitHub Guide</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Git & GitHub Guide</title>
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code&display=swap" rel="stylesheet">
+  <style>
+    /* Root variables for consistent theming */
+    :root {
+      --bg: #0a192f; /* Dark navy background */
+      --fg: #e6f1ff; /* Light blue-white text */
+      --accent: #64ffda; /* Bright cyan accent */
+      --toc-bg: #112240; /* Slightly lighter navy for TOC */
+      --card-bg: #112240; /* Card background */
+      --border: #1d2d50; /* Darker border color */
+      --highlight: #64ffda33; /* Semi-transparent accent for search */
+      --header-height: 80px;
+      --sidebar-darker: #0a192f; /* Darker navy for gradient start */
+      --sidebar-lighter: #112240; /* Lighter navy for gradient end */
+      --shadow-color: rgba(2, 12, 27, 0.7); /* Dark shadow color */
+      --transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1); /* Smooth transition */
+    }
+
+    /* Basic body styling */
+    body {
+      margin: 0;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background-color: var(--bg);
+      color: var(--fg);
+      line-height: 1.6;
+      scroll-behavior: smooth;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* Header and Footer styles */
+    header {
+      background: linear-gradient(to right, var(--sidebar-darker), var(--sidebar-lighter));
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding: 2em;
+      border-bottom: 1px solid var(--border);
+      box-shadow: 0 4px 20px var(--shadow-color);
+      gap: 2em;
+    }
+
+    .header-left {
+      flex: 0 0 40%;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+    }
+
+    .header-right {
+      flex: 0 0 55%;
+        display: flex;
+        flex-direction: column;
+      align-items: flex-start;
+      gap: 0.8em;
+      position: relative;
+      padding: 0.8em;
+      background: rgba(17, 34, 64, 0.3);
+      border-radius: 12px;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(100, 255, 218, 0.1);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    .header-left img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 12px;
+      box-shadow: 0 8px 30px var(--shadow-color);
+      transition: var(--transition);
+      display: block;
+    }
+
+    .header-right h1 {
+      font-size: 3em;
+      margin: 0;
+      background: linear-gradient(120deg, var(--accent), #fff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      line-height: 1.2;
+      position: relative;
+      padding-bottom: 0.15em;
+    }
+
+    .header-right h1::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 40px;
+      height: 3px;
+      background: var(--accent);
+      border-radius: 2px;
+      transition: width 0.3s ease;
+    }
+
+    .header-right:hover h1::after {
+      width: 400px;
+    }
+
+    .header-right p {
+      font-size: 1em;
+      color: #8892b0;
+      margin: 0;
+      line-height: 1.4;
+      font-weight: 400;
+      max-width: 95%;
+    }
+
+    .header-right .repo-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6em;
+      margin-top: 0.3em;
+      padding: 0.6em 1.2em;
+      background: rgba(100, 255, 218, 0.1);
+      color: var(--accent);
+      border: 2px solid var(--accent);
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.95em;
+      text-decoration: none;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .header-right .repo-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        120deg,
+        transparent,
+        rgba(100, 255, 218, 0.2),
+        transparent
+      );
+      transition: 0.5s;
+    }
+
+    .header-right .repo-btn:hover {
+      background: rgba(100, 255, 218, 0.2);
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(100, 255, 218, 0.2);
+    }
+
+    .header-right .repo-btn:hover::before {
+      left: 100%;
+    }
+
+    .header-right .repo-btn i {
+      font-size: 1.2em;
+      transition: transform 0.3s ease;
+    }
+
+    .header-right .repo-btn:hover i {
+      transform: translateX(3px);
+    }
+
+    .header-right blockquote {
+      margin: 0.6em 0;
+      padding: 1em;
+      border-left: 4px solid var(--accent);
+      background: rgba(100, 255, 218, 0.05);
+      border-radius: 8px;
+      font-style: italic;
+      color: #8892b0;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      font-size: 0.95em;
+      width: 100%;
+      white-space: nowrap;
+      box-sizing: border-box;
+    }
+
+    .header-right blockquote::before {
+      content: "'";
+      position: absolute;
+      top: -15px;
+      left: 10px;
+      font-size: 3em;
+      color: rgba(100, 255, 218, 0.1);
+      font-family: serif;
+    }
+
+    .header-right blockquote:hover {
+      background: rgba(100, 255, 218, 0.08);
+      transform: translateX(5px);
+      border-left-width: 6px;
+    }
+
+    .header-right blockquote p {
+      margin: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .header-right .author-info {
+        display: flex;
+      align-items: center;
+      gap: 0.8em;
+      margin-top: 0.3em;
+    }
+
+    .header-right .author-info a {
+      color: var(--accent);
+        text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+      gap: 0.5em;
+      font-size: 0.95em;
+    }
+
+    .header-right .author-info a:hover {
+      color: #fff;
+      transform: translateX(3px);
+    }
+
+    .header-right .author-info a i {
+      font-size: 1.1em;
+    }
+
+    .header-right .last-updated {
+      font-size: 0.85em;
+      color: #8892b0;
+      display: flex;
+      align-items: center;
+      gap: 0.5em;
+    }
+
+    .header-right .last-updated i {
+      color: var(--accent);
+    }
+
+    .header-right .badges {
+      display: flex;
+      gap: 0.8em;
+      margin-top: 0.6em;
+      flex-wrap: wrap;
+    }
+
+    .header-right .badges a {
+      transition: transform 0.3s ease;
+    }
+
+    .header-right .badges a:hover {
+      transform: translateY(-3px);
+    }
+
+    .header-right .badges img {
+      height: 24px;
+    }
+
+    /* Update the badges HTML to use smaller badges */
+    .header-right .badges a[href*="stars"] img {
+      content: url("https://img.shields.io/github/stars/atharvbyadav/Git-GitHub?style=flat-square&logo=github&logoColor=white&labelColor=0A192F&color=64FFDA");
+    }
+    .header-right .badges a[href*="issues"] img {
+      content: url("https://img.shields.io/github/issues/atharvbyadav/Git-GitHub?style=flat-square&logo=github&logoColor=white&labelColor=0A192F&color=64FFDA");
+    }
+    .header-right .badges a[href*="pulls"] img {
+      content: url("https://img.shields.io/github/issues-pr/atharvbyadav/Git-GitHub?style=flat-square&logo=github&logoColor=white&labelColor=0A192F&color=64FFDA");
+    }
+
+    /* Content wrapper adjustments */
+    .content-wrapper {
+      display: flex;
+      flex-grow: 1;
+      min-height: calc(100vh - var(--header-height) - 200px);
+      position: relative;
+    }
+
+    /* TOC adjustments */
+    #toc {
+      padding: 2em 1.5em;
+      background: linear-gradient(to bottom, var(--sidebar-darker), var(--sidebar-lighter));
+      position: sticky;
+      top: 0;
+      height: calc(100vh - var(--header-height));
+      overflow-y: auto;
+      width: 280px;
+      min-width: 280px;
+      flex: 0 0 280px;
+      border-right: 1px solid var(--border);
+      box-shadow: 4px 0 20px var(--shadow-color);
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      scrollbar-width: thin; /* For Firefox */
+      scrollbar-color: var(--accent) var(--toc-bg); /* For Firefox */
+    }
+
+    /* Webkit (Chrome, Safari, Edge) Scrollbar Styling */
+    #toc::-webkit-scrollbar {
+      width: 8px;
+      background: transparent;
+    }
+
+    #toc::-webkit-scrollbar-track {
+      background: var(--toc-bg);
+      border-radius: 4px;
+      margin: 4px 0;
+    }
+
+    #toc::-webkit-scrollbar-thumb {
+      background: var(--accent);
+      border-radius: 4px;
+      border: 2px solid var(--toc-bg);
+      transition: all 0.3s ease;
+    }
+
+    #toc::-webkit-scrollbar-thumb:hover {
+      background: #4cd8b2; /* Lighter shade of accent color */
+      cursor: pointer;
+    }
+
+    /* Hide scrollbar when not hovering (optional) */
+    #toc {
+      scrollbar-width: none; /* For Firefox */
+      -ms-overflow-style: none; /* For IE and Edge */
+    }
+
+    #toc:hover {
+      scrollbar-width: thin; /* Show scrollbar on hover for Firefox */
+    }
+
+    #toc::-webkit-scrollbar {
+      display: none; /* Hide scrollbar by default for Webkit */
+    }
+
+    #toc:hover::-webkit-scrollbar {
+      display: block; /* Show scrollbar on hover for Webkit */
+    }
+
+    /* Ensure smooth scrolling */
+    #toc {
+      scroll-behavior: smooth;
+    }
+
+    /* Add padding to prevent content from being hidden behind scrollbar */
+    #toc ul {
+      padding-right: 4px;
+    }
+
+    #search {
+      width: 100%;
+      padding: 0.8em 1em;
+      margin-bottom: 2em;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--fg);
+      font-size: 0.95em;
+      transition: var(--transition);
+    }
+
+    #search:focus {
+      outline: none;
+      border-color: var(--accent);
+      background: rgba(255, 255, 255, 0.1);
+      box-shadow: 0 0 0 2px rgba(100, 255, 218, 0.2);
+    }
+
+    #toc ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.8em;
+      flex-grow: 1;
+    }
+
+    #toc li {
+      width: 100%;
+    }
+
+    #toc a {
+      display: flex;
+      align-items: center;
+      gap: 0.8em;
+      padding: 0.8em 1em;
+      color: #8892b0;
+      text-decoration: none;
+      border-radius: 6px;
+      transition: var(--transition);
+      font-weight: 500;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    #toc a:hover {
+      color: var(--accent);
+      background: rgba(100, 255, 218, 0.1);
+      transform: translateX(5px);
+    }
+
+    #toc a.active {
+      color: var(--accent);
+      background: rgba(100, 255, 218, 0.1);
+      border-left: 2px solid var(--accent);
+    }
+
+    /* Main content adjustments */
+    main {
+      flex-grow: 1;
+      padding: 2em 3em;
+      max-width: 1000px;
+      margin: 0 auto;
+      width: 100%;
+      box-sizing: border-box;
+      position: relative; /* For absolute positioning of sections */
+      min-height: 400px; /* Minimum height to prevent layout shifts */
+    }
+
+    /* Section styling */
+    section {
+      background: var(--card-bg);
+      padding: 2em;
+      border-radius: 12px;
+      margin-bottom: 2em;
+      border: 1px solid var(--border);
+      box-shadow: 0 4px 20px var(--shadow-color);
+      width: 100%;
+      box-sizing: border-box;
+      position: absolute; /* Position sections absolutely */
+      top: 0;
+      left: 0;
+      opacity: 0;
+      visibility: hidden; /* Hide sections completely when not active */
+      transform: translateY(20px);
+      transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+    }
+
+    section.active-section {
+      position: relative; /* Return to normal flow when active */
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    h2 {
+      font-size: 2em;
+      margin: 0 0 1em;
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      gap: 0.5em;
+    }
+
+    h3 {
+      font-size: 1.4em;
+      margin: 1.5em 0 1em;
+      color: #ccd6f6;
+    }
+
+    /* Code blocks */
+    pre {
+      background: #1d2d50;
+      padding: 1.5em;
+      border-radius: 8px;
+      position: relative;
+      margin: 1.5em 0;
+      border: 1px solid var(--border);
+    }
+
+    code {
+      font-family: 'Fira Code', monospace;
+      color: #e6f1ff;
+    }
+
+    .copy-btn {
+      position: absolute;
+      top: 0.8em;
+      right: 0.8em;
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--accent);
+      border: none;
+      padding: 0.5em 1em;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.9em;
+      transition: var(--transition);
+      min-width: 80px; /* Ensure enough space for "Copied!" */
+      text-align: center; /* Center the text */
+    }
+
+    .copy-btn:hover {
+      background: rgba(100, 255, 218, 0.2);
+    }
+
+    .copy-btn.copied {
+      background: #28a745; /* Green background for copied state */
+      border-color: #28a745; /* Green border */
+      color: #fff; /* White text */
+    }
+
+    /* Back to Top button - Redesigned */
+    #backToTop {
+      position: fixed;
+      bottom: 1.5em; /* Stick closer to the bottom */
+      right: 1.5em; /* Stick closer to the right */
+      width: 40px; /* Make button smaller */
+      height: 40px; /* Make button smaller */
+      font-size: 1.5em; /* Smaller icon */
+      background: linear-gradient(135deg, var(--accent) 60%, #43e9c6 100%);
+      color: var(--bg);
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 8px 32px rgba(100,255,218,0.25), 0 2px 8px rgba(0,0,0,0.18);
+      transition: transform 0.2s, box-shadow 0.2s, background 0.3s;
+      z-index: 1000;
+      opacity: 0.92;
+      backdrop-filter: blur(2px);
+      outline: none;
+    }
+    .copy-btn.no-transition {
+      transition: none !important;
+    }
+    #backToTop:hover, #backToTop:focus {
+      background: linear-gradient(135deg, #43e9c6 40%, var(--accent) 100%);
+      color: #fff;
+      transform: scale(1.12) translateY(-4px);
+      box-shadow: 0 12px 36px rgba(100,255,218,0.35), 0 4px 16px rgba(0,0,0,0.22);
+      opacity: 1;
+    }
+    #backToTop:active {
+      transform: scale(0.98);
+      box-shadow: 0 4px 12px rgba(100,255,218,0.18);
+    }
+    @media (max-width: 600px) {
+    #backToTop {
+        width: 35px; /* Make button smaller for mobile */
+        height: 35px; /* Make button smaller for mobile */
+        font-size: 1.2em; /* Smaller icon for mobile */
+        bottom: 0.8em; /* Stick closer to the bottom for mobile */
+        right: 0.8em; /* Stick closer to the right for mobile */
+      }
+    }
+
+    /* Sleek Footer Redesign */
+    footer {
+      background: var(--bg);
+      padding: 3em 2em 2em 2em;
+      border-top: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    .footer-content {
+      background: var(--card-bg);
+      border-radius: 16px;
+      box-shadow: 0 4px 24px var(--shadow-color);
+      padding: 1.2em 3.5em 1em 3.5em;
+      max-width: 1100px;
+      width: 100%;
+      margin: 0 auto 1em auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-size: 0.98em;
+    }
+    .footer-content .highlight {
+      color: var(--accent);
+      font-weight: 700;
+      font-size: 1.05em;
+    }
+    .footer-content p {
+      margin: 0.5em 0;
+      text-align: center;
+      color: var(--fg);
+      font-size: 0.98em;
+    }
+    .footer-content .footer-meta {
+      color: #bfc9db;
+      font-size: 0.93em;
+      margin-bottom: 1em;
+    }
+    .footer-content .footer-meta i {
+      color: var(--accent);
+      margin: 0 0.2em;
+      font-size: 0.98em;
+    }
+    .footer-content .note {
+      background: rgba(100,255,218,0.07);
+      border-left: 4px solid var(--accent);
+      border-radius: 8px;
+      padding: 0.7em 1em;
+      margin: 0.7em 0 0.3em 0;
+      width: 100%;
+      box-sizing: border-box;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      font-size: 0.93em;
+    }
+    .footer-content .note i {
+      color: var(--accent);
+      margin-right: 0.7em;
+      font-size: 1em;
+      margin-top: 0.1em;
+    }
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 2.5em;
+      margin: 1em 0 0.3em 0;
+      width: 100%;
+    }
+    .footer-links a {
+      display: flex;
+      align-items: center;
+      gap: 0.5em;
+      background: none;
+      color: var(--accent);
+      border: none;
+      font-size: 1em;
+      font-weight: 600;
+      text-decoration: none;
+      transition: color 0.2s, transform 0.2s;
+      padding: 0.15em 0.5em;
+      border-radius: 6px;
+    }
+    .footer-links a:hover {
+      color: #fff;
+      background: rgba(100,255,218,0.08);
+      transform: translateY(-2px) scale(1.05);
+    }
+    .copyright {
+      color: #bfc9db;
+      font-size: 0.93em;
+      text-align: center;
+      margin-top: 0.2em;
+      margin-bottom: 0.1em;
+    }
+    .footer-made {
+      color: #8892b0;
+      font-size: 0.93em;
+      text-align: center;
+      margin-bottom: 0.2em;
+    }
+    .footer-made i {
+      color: #ff4b4b;
+      margin: 0 0.2em;
+      font-size: 1em;
+    }
+    @media (max-width: 1100px) {
+      .footer-content {
+        max-width: 98vw;
+        padding-left: 1em;
+        padding-right: 1em;
+      }
+    }
+    @media (max-width: 600px) {
+      .footer-content {
+        padding: 0.7em 0.2em 0.7em 0.2em;
+        border-radius: 10px;
+        font-size: 0.93em;
+      }
+      .footer-links {
+        gap: 1em;
+        flex-direction: column;
+      }
+      .footer-links a {
+        font-size: 0.93em;
+        padding: 0.5em 0.7em;
+      }
+    }
+
+    /* Media queries for responsive design */
+    @media (max-width: 1024px) {
+      .content-wrapper {
+        flex-direction: column;
+      }
+
+      #toc {
+        position: static;
+        width: 100%;
+        min-width: 100%;
+        flex: none;
+        height: auto;
+        max-height: 300px;
+      }
+
+      main {
+        padding: 1.5em;
+        max-width: 100%;
+      }
+    }
+
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: 1.5em;
+        gap: 1.5em;
+      }
+
+      .header-left, .header-right {
+        flex: 0 0 100%;
+        width: 100%;
+        align-items: center;
+      }
+
+      .header-right {
+        width: 100%;
+        align-items: center;
+        text-align: center;
+        padding: 1em;
+      }
+
+      .header-right h1 {
+        font-size: 1.8em;
+        text-align: center;
+      }
+
+      .header-right h1::after {
+        left: 50%;
+        transform: translateX(-50%);
+      }
+
+      .header-right p {
+        text-align: center;
+        max-width: 100%;
+        font-size: 0.95em;
+      }
+
+      .header-right blockquote {
+        white-space: normal;
+      }
+
+      .header-right blockquote p {
+        white-space: normal;
+      }
+
+      .header-right .author-info {
+        justify-content: center;
+      }
+
+      .header-right .badges {
+        justify-content: center;
+      }
+
+      .header-right .badges img {
+        height: 20px;
+      }
+
+      .content-wrapper {
+        flex-direction: column;
+      }
+
+      #toc {
+        position: static;
+        width: 100%;
+        min-width: 100%;
+        flex: none;
+        height: auto;
+        border: none;
+        border-bottom: 1px solid var(--border);
+        scrollbar-width: thin; /* Always show scrollbar on mobile */
+        -ms-overflow-style: auto;
+      }
+
+      #toc::-webkit-scrollbar {
+        display: block; /* Always show scrollbar on mobile */
+      }
+
+      #toc ul {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.5em;
+      }
+
+      #toc li {
+        width: auto;
+      }
+
+      #toc a {
+        width: auto;
+        white-space: nowrap;
+      }
+
+      main {
+        padding: 1.5em;
+      }
+
+      section {
+        padding: 1.5em;
+      }
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <header class="hero">
-            <div class="hero-background">
-                <div class="code-bg"></div>
-                <div class="gradient-overlay"></div>
-            </div>
-            <div class="hero-content">
-                <div class="hero-text">
-                    <div class="title-wrapper">
-                        <h1 class="title">Git and GitHub Guide</h1>
-                        <div class="title-decoration">
-                            <span class="dot"></span>
-                            <span class="line"></span>
-                            <span class="dot"></span>
-                        </div>
-                    </div>
-                    <p class="subtitle">Your all-in-one guide to mastering Git and GitHub</p>
-                    <div class="stats">
-                        <div class="stat-item">
-                            <div class="stat-content">
-                                <i class="fas fa-code-branch"></i>
-                                <div class="stat-text">
-                                    <span class="stat-number">100+</span>
-                                    <span class="stat-label">Commands Available</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-content">
-                                <i class="fas fa-book"></i>
-                                <div class="stat-text">
-                                    <span class="stat-number">50+</span>
-                                    <span class="stat-label">Topics Covered</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-content">
-                                <i class="fas fa-infinity"></i>
-                                <div class="stat-text">
-                                    <span class="stat-number">∞</span>
-                                    <span class="stat-label">Possibilities</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="hero-features">
-                    <div class="feature-card">
-                        <div class="feature-icon">
-                            <i class="fas fa-code"></i>
-                        </div>
-                        <div class="feature-content">
-                            <h3>Version Control</h3>
-                            <p>Track changes and collaborate efficiently</p>
-                            <div class="feature-tags">
-                                <span>git init</span>
-                                <span>git add</span>
-                                <span>git commit</span>
-                                <span>git push</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">
-                            <i class="fas fa-users"></i>
-                        </div>
-                        <div class="feature-content">
-                            <h3>Collaboration</h3>
-                            <p>Work together seamlessly</p>
-                            <div class="feature-tags">
-                                <span>git clone</span>
-                                <span>forks</span>
-                                <span>git merge</span>
-                                <span>pull requests</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">
-                            <i class="fas fa-history"></i>
-                        </div>
-                        <div class="feature-content">
-                            <h3>History</h3>
-                            <p>Never lose your work</p>
-                            <div class="feature-tags">
-                                <span>git log</span>
-                                <span>git checkout</span>
-                                <span>git revert</span>
-                                <span>git diff</span>
-                                <span>git reset</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </header>
 
-        <nav class="toc">
-            <h2> Table of Contents</h2>
-            <ul id="toc-list"></ul>
-        </nav>
+<header>
+  <div class="header-left">
+    <p align="center">
+      <img src="https://raw.githubusercontent.com/atharvbyadav/Git-GitHub/main/banner.png" alt="Git-GitHub" />
+    </p>
+  </div>
+  <div class="header-right">
+    <h1>Git & GitHub Guide</h1>
+    <p>Master version control and collaborative development</p>
+    
+    <a class="repo-btn" href="https://github.com/atharvbyadav/Git-GitHub" target="_blank">
+      <i class="fab fa-github"></i>
+      View Repository
+    </a>
 
-        <main class="content">
-            <!-- Content will be dynamically inserted here -->
-        </main>
+    <blockquote>
+      <p>Version control is not just a tool — it's a discipline.</p>
+    </blockquote>
 
-        <footer class="footer">
-            <div class="author-info">
-                <p>Created by <a href="https://github.com/atharvbyadav" target="_blank">@atharvbyadav</a></p>
-                <p>Repository: <a href="https://github.com/atharvbyadav/Git-GitHub" target="_blank">Git-GitHub</a></p>
-            </div>
-            <div class="social-links">
-                <a href="https://github.com/atharvbyadav" target="_blank"><i class="fab fa-github"></i></a>
-            </div>
-        </footer>
+    <div class="author-info">
+      <a href="https://github.com/atharvbyadav" target="_blank">
+        <i class="fas fa-user-circle"></i>
+        Atharv Yadav
+      </a>
+      <span class="last-updated">
+        <i class="far fa-clock"></i>
+        Updated: 06/06/2025
+      </span>
     </div>
 
-    <button id="back-to-top" class="back-to-top">
-        <i class="fas fa-arrow-up"></i>
-    </button>
+    <div class="badges">
+      <a href="https://github.com/atharvbyadav/Git-GitHub" target="_blank" title="Stars">
+        <img src="https://img.shields.io/github/stars/atharvbyadav/Git-GitHub?style=flat-square&logo=github&logoColor=white&labelColor=0A192F&color=64FFDA" alt="Stars">
+      </a>
+      <a href="https://github.com/atharvbyadav/Git-GitHub/issues" target="_blank" title="Issues">
+        <img src="https://img.shields.io/github/issues/atharvbyadav/Git-GitHub?style=flat-square&logo=github&logoColor=white&labelColor=0A192F&color=64FFDA" alt="Issues">
+      </a>
+      <a href="https://github.com/atharvbyadav/Git-GitHub/pulls" target="_blank" title="PRs">
+        <img src="https://img.shields.io/github/issues-pr/atharvbyadav/Git-GitHub?style=flat-square&logo=github&logoColor=white&labelColor=0A192F&color=64FFDA" alt="PRs">
+      </a>
+    </div>
+  </div>
+</header>
 
-    <script src="scripts.js"></script>
+<div class="content-wrapper">
+  <div id="toc">
+    <input type="text" id="search" placeholder="Search the guide..." />
+    <ul>
+      <li><a href="#what-is-git"><i class="fas fa-code-branch"></i> What is Git?</a></li>
+      <li><a href="#what-is-github"><i class="fab fa-github"></i> What is GitHub?</a></li>
+      <li><a href="#installing-git"><i class="fas fa-download"></i> Installing Git</a></li>
+      <li><a href="#git-configuration"><i class="fas fa-cog"></i> Git Configuration</a></li>
+      <li><a href="#basic-git-commands"><i class="fas fa-terminal"></i> Basic Commands</a></li>
+      <li><a href="#working-with-github"><i class="fab fa-github"></i> Working with GitHub</a></li>
+      <li><a href="#renaming-removing-files"><i class="fas fa-exchange-alt"></i> Renaming & Remove</a></li>
+      <li><a href="#branching-merging"><i class="fas fa-code-branch"></i> Branching & Merging</a></li>
+      <li><a href="#stashing-cleaning"><i class="fas fa-box-open"></i> Stashing & Cleaning</a></li>
+      <li><a href="#rewriting-history"><i class="fas fa-history"></i> Rewriting History</a></li>
+      <li><a href="#logs-diffs"><i class="fas fa-list"></i> Logs & Diffs</a></li>
+      <li><a href="#tags"><i class="fas fa-tag"></i> Tags</a></li>
+      <li><a href="#rebasing-cherry-picking"><i class="fas fa-code-branch"></i> Rebasing & Cherry Picking</a></li>
+      <li><a href="#git-submodules"><i class="fas fa-puzzle-piece"></i> Git Submodules</a></li>
+      <li><a href="#git-aliases"><i class="fas fa-magic"></i> Git Aliases</a></li>
+      <li><a href="#collaborating-with-others"><i class="fas fa-users"></i> Collaborating</a></li>
+      <li><a href="#resolving-merge-conflicts"><i class="fas fa-exclamation-triangle"></i> Merge Conflicts</a></li>
+      <li><a href="#best-practices"><i class="fas fa-star"></i> Best Practices</a></li>
+      <li><a href="#final-words"><i class="fas fa-flag-checkered"></i> Final Words</a></li>
+      <li><a href="#stay-connected"><i class="fas fa-handshake"></i> Stay Connected</a></li>
+    </ul>
+  </div>
+
+  <main>
+    <!-- Main content begins -->
+
+    <section id="what-is-git" class="active-section">
+      <h2><i class="fas fa-code-branch"></i> What is Git?</h2>
+      <p><strong>Git</strong> is a powerful, open-source <strong>Distributed Version Control System (DVCS)</strong> designed to handle everything from small to very large projects with speed and efficiency. Unlike older centralized systems, Git allows every developer to have a full copy of the project's history on their local machine, enabling robust offline work and more flexible collaboration models.</p>
+
+      <h3>✨ Core Principles of Git:</h3>
+      <ul>
+        <li><strong>Distributed Nature:</strong> Every clone of a repository is a full-fledged repository itself, containing the complete history of the project. This means developers can work offline, commit changes locally, and synchronize with others later. This decentralization provides resilience and speed.</li>
+        <li><strong>Snapshots, Not Deltas:</strong> Instead of storing changes as a series of differences (deltas) from one version to the next, Git fundamentally stores snapshots of your entire project each time you commit. If a file hasn't changed, Git simply stores a link to the previous identical file, making it incredibly efficient for managing versions. This approach simplifies operations like branching and merging.</li>
+        <li><strong>Data Integrity:</strong> Git uses a cryptographic hash (SHA-1) for every object (files, commits, trees, tags). This ensures that the contents of the repository cannot be changed without Git detecting it, providing strong data integrity guarantees.</li>
+        <li><strong>Branches are Cheap:</strong> Creating, merging, and deleting branches in Git is a lightweight and fast operation. This encourages developers to use branches frequently for new features, bug fixes, and experiments, without fear of disrupting the main codebase.</li>
+      </ul>
+
+      <h3>🔑 Key Features:</h3>
+      <ul>
+        <li><strong>Tracks Changes:</strong> Git meticulously records every modification to your files over time, allowing you to review past versions, see who changed what, and revert to previous states.</li>
+        <li><strong>Supports Branching and Merging:</strong> Create isolated lines of development (branches) for new features or bug fixes. Effortlessly merge these branches back into the main project once development is complete.</li>
+        <li><strong>Works Offline:</strong> Because every developer has a full copy of the repository locally, you can continue to work, commit, and manage your project even without an internet connection.</li>
+        <li><strong>Facilitates Safe Experimentation:</strong> Branches enable you to try out new ideas, implement risky features, or refactor code without impacting the stable version of your project. If an an experiment doesn't work out, you can simply discard the branch.</li>
+        <li><strong>Efficient for Large Projects:</strong> Git's data model and snapshot approach make it incredibly performant, even for repositories with thousands of files and a long history.</li>
+        <li><strong>Collaboration-Friendly:</strong> Git's distributed nature and powerful branching/merging capabilities make it ideal for team environments, enabling multiple developers to work on the same project concurrently.</li>
+      </ul>
+      <p>In essence, Git provides the foundation for robust, collaborative, and efficient software development by giving you unparalleled control over your project's version history.</p>
+    </section>
+
+    <section id="what-is-github">
+      <h2><i class="fab fa-github"></i> What is GitHub?</h2>
+      <p><strong>GitHub</strong> is a leading web-based platform that extends the capabilities of Git by providing cloud hosting for Git repositories and a suite of powerful collaboration and project management tools. While Git is the underlying version control system, GitHub acts as a central hub where developers can store, share, and collaborate on their projects from anywhere in the world.</p>
+
+      <h3>💡 Key Aspects & Why Use GitHub?</h3>
+      <ul>
+        <li><strong>Cloud-Based Repository Hosting:</strong> GitHub allows you to host your Git repositories remotely in the cloud. This provides a centralized and secure backup of your codebase, making it accessible from multiple devices and locations. It also serves as the "single source of truth" for your project.</li>
+        <li><strong>Enhanced Collaboration (Pull Requests):</strong> One of GitHub's most iconic features is the **Pull Request (PR)**. This mechanism enables developers to propose changes to a project, which can then be reviewed, discussed, and approved (or rejected) by other team members before being merged into the main codebase. PRs foster code quality, knowledge sharing, and efficient collaboration.</li>
+        <li><strong>Issue Tracking and Project Management:</strong> GitHub provides robust tools for tracking issues, bugs, and feature requests. You can create issues, assign them to team members, link them to specific code changes, and track their progress. This helps manage the project workflow and ensures that tasks are organized and addressed.</li>
+        <li><strong>Continuous Integration/Continuous Deployment (CI/CD) with GitHub Actions:</strong> GitHub Actions allows you to automate workflows directly within your repository. You can set up automated tests, build processes, and deployment pipelines that trigger on specific events (like pushes or pull requests). This streamlines the development cycle, ensures code quality, and speeds up software delivery.</li>
+        <li><strong>Code Review Tools:</strong> Beyond pull requests, GitHub offers inline commenting, suggestion features, and commit history visualization, making code reviews more efficient and transparent.</li>
+        <li><strong>Social Coding & Open Source:</strong> GitHub is a vibrant social platform for developers. It makes it incredibly easy to discover, contribute to, and manage open-source projects. Features like forking, starring repositories, and following developers build a strong community around code.</li>
+        <li><strong>Wikis and Pages:</strong> Repositories can have associated wikis for documentation and GitHub Pages for hosting simple websites directly from your repository's code.</li>
+      </ul>
+      <p>In summary, GitHub transforms Git from a powerful local tool into a comprehensive platform for distributed team collaboration, project management, and automated software development in the cloud.</p>
+    </section>
+
+    <section id="installing-git">
+      <h2><i class="fas fa-download"></i> Installing Git</h2>
+      <h3>🔽 For Windows:</h3>
+      <ul>
+        <li>Download Git from <a href="https://git-scm.com/">git-scm.com</a></li>
+        <li>Follow the installation wizard (use defaults if unsure)</li>
+      </ul>
+      <h3>🍎 For macOS:</h3>
+      <pre><code>brew install git</code><button class="copy-btn">Copy</button></pre>
+      <p>The Homebrew package manager simplifies Git installation on macOS. If you don't have Homebrew, you'll need to install it first by following instructions on <a href="https://brew.sh/" target="_blank">brew.sh</a>.</p>
+      <h3>🐧 For Linux:</h3>
+      <pre><code>sudo apt install git         # Ubuntu/Debian
+sudo yum install git         # RHEL/CentOS</code><button class="copy-btn">Copy</button></pre>
+      <p>These commands use your distribution's default package manager (APT for Debian/Ubuntu, YUM for RHEL/CentOS) to install Git. This ensures compatibility and easy updates.</p>
+      <h3>✅ Verify Installation:</h3>
+      <pre><code>git --version</code><button class="copy-btn">Copy</button></pre>
+      <p>This command outputs the installed Git version, confirming successful installation. If Git is not found, you might need to check your system's PATH environment variable or re-run the installation.</p>
+    </section>
+
+    <section id="git-configuration">
+      <h2><i class="fas fa-cog"></i> Git Configuration</h2>
+      <p>Configure Git globally so it knows who you are. This information is embedded in your commits, so it's crucial for attributing changes correctly.</p>
+      <pre><code>git config --global user.name "Pro User"
+git config --global user.email "User@example.com"</code><button class="copy-btn">Copy</button></pre>
+      <p><strong>What it does:</strong> Sets your name and email address for all your Git repositories on your current system. This information is associated with every commit you make.</p>
+      <p><strong>Purpose:</strong> To properly identify the author of each commit. This is essential for collaboration and tracking who made what changes.</p>
+      <p><strong>State:</strong> This command modifies Git's global configuration file (usually `~/.gitconfig` on Linux/macOS or `C:\Users\<username>\.gitconfig` on Windows).</p>
+      <p><strong>Why:</strong> Why is this important? Because without it, your commits would show up as "unknown" or "anonymous," making it difficult to trace changes back to you, especially in a team environment.</p>
+      <h3>Optional Goodies:</h3>
+      <pre><code>git config --global core.editor "code --wait"     # VSCode as default editor
+git config --global color.ui auto               # Enable colored output
+git config --global alias.co checkout             # Shortcut for checkout</code><button class="copy-btn">Copy</button></pre>
+      <p><strong>What it does:</strong> These commands configure optional, but highly recommended, settings for a more efficient Git workflow:</p>
+      <ul>
+        <li>`core.editor`: Sets your preferred text editor for Git operations that require one, like writing multi-line commit messages or rebasing. The `--wait` flag for VS Code ensures Git waits for you to close the editor before continuing.</li>
+        <li>`color.ui`: Enables colorful output in your terminal for Git commands, making status messages, diffs, and logs much easier to read.</li>
+        <li>`alias.<name>`: Creates custom shortcuts (aliases) for frequently used Git commands. Here, `co` becomes a shortcut for `checkout`.</li>
+      </ul>
+      <p><strong>Purpose:</strong> To personalize your Git environment, enhance readability, and speed up common operations.</p>
+      <p><strong>State:</strong> These modify the global Git configuration, similar to `user.name` and `user.email`.</p>
+    </section>
+
+    <section id="basic-git-commands">
+      <h2><i class="fas fa-terminal"></i> Basic Git Commands</h2>
+      <p>Here's your day-to-day Git toolkit, explaining each command's function and its impact on your repository's state.</p>
+      <h3>🔹 Initialize a Repository</h3>
+      <pre><code>git init</code><button class="copy-btn">Copy</button></pre>
+      <p><strong>What it does:</strong> Transforms the current directory into a new Git repository. It creates a hidden `.git` directory, which is where Git stores all of its metadata, object database, and history for your project.</p>
+      <p><strong>Purpose:</strong> This is the first step to start tracking changes in a new project that is not yet under version control.</p>
+      <p><strong>State:</strong> Initializes an empty Git repository. Your working directory and staging area are initially empty from Git's perspective.</p>
+      <p><strong>Why:</strong> Why is an empty Git repository created? It's essential because it sets up the necessary infrastructure for Git to begin monitoring your files. Without it, Git wouldn't know where to store the version history or what files to track.</p>
+
+      <h3>🔹 Clone a Repository</h3>
+      <pre><code>git clone https://github.com/user/repo.git</code><button class="copy-btn">Copy</button></pre>
+      <p><strong>What it does:</strong> Creates a local copy of an existing remote Git repository. It downloads all the files, branches, and commit history from the specified URL to your local machine.</p>
+      <p><strong>Purpose:</strong> Used to get a copy of a project that is already hosted on a platform like GitHub, allowing you to start working on it locally.</p>
+      <p><strong>State:</strong> Creates a new directory (named after the repository unless specified) containing a full copy of the remote repository's files. It also sets up a remote tracking branch, usually `origin/main` (or `origin/master`), and automatically checks out the `main` (or `master`) branch.</p>
+      <p><strong>Why:</strong> Why clone instead of just downloading files? Cloning maintains the entire project history, making it easy to contribute changes back to the original repository, create branches, and collaborate effectively. It's the standard way to get started with an existing Git project.</p>
+
+      <h3>🔹 Check Status</h3>
+      <pre><code>git status</code><button class="copy-btn">Copy</button></pre>
+      <p><strong>What it does:</strong> Displays the state of your working directory and staging area. It tells you which files are untracked, which have been modified, and which are staged for the next commit.</p>
+      <p><strong>Purpose:</strong> To get a quick overview of your project's current status and to understand what changes are pending.</p>
+      <p><strong>State:</strong> Reads the current state of your files and compares it to the last commit and the staging area. It doesn't modify any files or the repository history.</p>
+      <p><strong>Why:</strong> Why is `git status` so frequently used? It's your primary diagnostic tool. It helps you confirm your changes before committing, spot accidental modifications, and ensure you're on the right track.</p>
+
+      <h3>🔹 Stage Files</h3>
+      <pre><code>git add filename.ext      # Stage one file
+git add .                  # Stage everything</code><button class="copy-btn">Copy</button></pre>
+      <p><strong>What it does:</strong> Adds changes from your working directory to the staging area (also known as the "index"). The staging area acts as a buffer or a preview of your next commit. You can selectively add files or changes to the staging area.</p>
+      <p><strong>Purpose:</strong> To prepare changes for the next commit. Only changes that are "staged" will be included in the subsequent `git commit` command.</p>
+      <p><strong>State:</strong> Moves modifications from the working directory to the staging area. It does not affect the repository's commit history yet.</p>
+      <p><strong>Why:</strong> Why do we need a staging area? It provides granular control over what goes into a commit. You can make many changes, then choose to commit only a subset of them by staging specific files or parts of files. This allows for cleaner, more focused commits. For instance, you could fix a bug and refactor code, but only stage the bug fix for one commit and the refactoring for another.</p>
+
+      <h3>🔹 Commit Changes</h3>
+      <pre><code>git commit -m "Your commit message"</code><button class="copy-btn">Copy</button></pre>
+      <p><strong>What it does:</strong> Records the staged changes (from the staging area) into the repository's history as a new commit. A commit is a snapshot of your project at a specific point in time.</p>
+      <p><strong>Purpose:</strong> To permanently save a set of related changes as a single logical unit in your project's version history.</p>
+      <p><strong>State:</strong> Creates a new commit object in the `.git` directory, referencing the current state of the staging area. The `HEAD` pointer (which indicates your current branch) is updated to point to this new commit. The staging area is cleared after a successful commit.</p>
+      <p><strong>Why:</strong> Why are good commit messages important? A clear, concise, and descriptive commit message is vital for understanding the project's history, facilitating debugging, and enabling effective collaboration. It tells future you (or your teammates) *what* was changed and *why*.</p>
+
+      <h3>🔹 View Commit History</h3>
+      <pre><code>git log
+git log --oneline</code><button class="copy-btn">Copy</button></pre>
+      <p><strong>What it does:</strong> Displays a chronological list of commits in the current branch. Each commit shows its hash, author, date, and commit message.</p>
+      <p><strong>Purpose:</strong> To review the project's history, understand changes over time, and identify specific commits for further actions (like reverting or cherry-picking).</p>
+      <p><strong>State:</strong> Reads the repository's history but doesn't modify anything. It's a read-only operation.</p>
+      <ul>
+        <li>`git log`: Shows detailed commit information (hash, author, date, full message).</li>
+        <li>`git log --oneline`: Provides a condensed, single-line view of each commit, showing a shortened hash and the first line of the commit message.</li>
+      </ul>
+    </section>
+
+    <section id="working-with-github">
+      <h2><i class="fab fa-github"></i> Working with GitHub</h2>
+      <p>These commands facilitate interaction between your local Git repository and a remote repository, typically hosted on GitHub.</p>
+      <h3>🔗 Connect Local Repo to GitHub</h3>
+      <pre><code>git remote add origin https://github.com/yourusername/repo.git
+git branch -M main
+git push -u origin main</code><button class="copy-btn">Copy</button></pre>
+      <p><strong>What it does:</strong> This sequence of commands connects your local repository to a remote repository on GitHub and pushes your local `main` branch to it.</p>
+      <ul>
+        <li>`git remote add origin <URL>`: Defines a new remote connection named `origin` (a conventional name for the primary remote) and associates it with the given GitHub repository URL.</li>
+        <li>`git branch -M main`: Renames your current branch to `main`. This is often done because `main` has become the preferred default branch name over `master`.</li>
+        <li>`git push -u origin main`: Pushes your local `main` branch to the `origin` remote. The `-u` (or `--set-upstream`) flag sets up the upstream tracking, meaning `git pull` and `git push` will work without specifying `origin main` in the future for this branch.</li>
+      </ul>
+      <p><strong>Purpose:</strong> To establish a link between your local project and its cloud-hosted counterpart, enabling collaboration and remote backups.</p>
+      <p><strong>State:</strong> Modifies your local Git configuration (adding the remote) and updates the remote repository with your local `main` branch's history.</p>
+      <p><strong>Why:</strong> Why set up upstream tracking (`-u`)? It simplifies future interactions with the remote, allowing you to use shorthand commands like `git push` or `git pull` without explicitly naming the remote and branch.</p>
+
+      <h3>🚀 Push Changes</h3>
+      <pre><code>git push</code><button class="copy-btn">Copy</button></pre>
+      <p><strong>What it does:</strong> Sends your committed local changes from your current branch to the connected remote repository (e.g., GitHub). If upstream tracking is set up, it automatically pushes to the corresponding remote branch.</p>
+      <p><strong>Purpose:</strong> To share your local work with collaborators, update the remote repository, and create a backup of your progress.</p>
+      <p><strong>State:</strong> Updates the remote repository with the new branch and its commits. Your local repository remains unchanged.</p>
+
+      <h3>⬇️ Pull Changes</h3>
+      <pre><code>git pull</code><button class="copy-btn">Copy</button></pre>
+      <p><strong>What it does:</strong> Fetches changes from the remote repository and automatically merges them into your current local branch. It's essentially a shorthand for `git fetch` followed by `git merge`.</p>
+      <p><strong>Purpose:</strong> To synchronize your local repository with the latest changes from the remote, especially when collaborating with others.</p>
+      <p><strong>State:</strong> Downloads new commits and objects from the remote, then attempts to merge them into your current branch. This can update your working directory and staging area if conflicts occur.</p>
+      <p><strong>Why:</strong> Why pull often? Regularly pulling updates helps you stay in sync with your team's progress, reducing the likelihood and complexity of potential merge conflicts. It's a cornerstone of collaborative development.</p>
+
+      <h3>🔁 Clone Then Push to New Repo</h3>
+      <pre><code>git clone https://github.com/user/repo.git
+cd repo
+# make changes
+git add .
+git commit -m "Initial commit"
+git push origin main</code><button class="copy-btn">Copy</button></pre>
+      <p><strong>What it does:</strong> This scenario describes cloning an existing repository (perhaps a template or a project you want to modify and host elsewhere) and then pushing it as a *new* repository, or to a different branch/remote, after making initial changes.</p>
+      <ul>
+        <li>`git clone <URL>`: Downloads the remote repository.</li>
+        <li>`cd repo`: Navigates into the newly cloned directory.</li>
+        <li>`# make changes`: Placeholder for local modifications.</li>
+        <li>`git add .`: Stages all new or modified files.</li>
+        <li>`git commit -m "Initial commit"`: Commits the changes locally.</li>
+        <li>`git push origin main`: Pushes these local commits to the `main` branch of the `origin` remote. If `origin` isn't yet set up for a *new* remote, you would first use `git remote add origin <new_URL>`.</li>
+      </ul>
+      <p><strong>Purpose:</strong> To fork a project locally, modify it, and then establish it as a distinct project on a remote hosting service.</p>
+      <p><strong>State:</strong> Modifies your local working directory and local repository history, then updates the remote repository.</p>
+
+      <h3>📤 Create a Pull Request (PR)</h3>
+      <p>A Pull Request (PR) is a mechanism used on platforms like GitHub to propose changes from one branch (often a feature branch on your fork) to another (typically the `main` branch of the original repository).</p>
+      <p>1. Push your changes to your forked repo:</p>
+      <pre><code>git push origin your-branch-name</code><button class="copy-btn">Copy</button></pre>
+      <p><strong>What it does:</strong> Publishes your local feature branch to your personal fork on GitHub.</p>
+      <p><strong>Purpose:</strong> To make your work available on the remote so you can create a Pull Request from it.</p>
+      <p><strong>State:</strong> Updates your fork on GitHub with the new branch and its commits.</p>
+      <p>2. On GitHub, click <strong>"Compare & pull request"</strong>.</p>
+      <p>3. Write a clear title and description.</p>
+      <p>4. Submit it for review.</p>
+      <p><strong>Purpose of a PR:</strong> A PR serves as a discussion forum for your proposed changes. Other developers can review your code, provide feedback, suggest improvements, and ultimately decide whether to merge your changes into the main project.</p>
+      <p><strong>Why:</strong> Why use Pull Requests? They are the standard for collaborative code review and integration. They ensure code quality, facilitate knowledge sharing, and prevent accidental breaking changes to the main codebase.</p>
+      <blockquote>
+        <p>✅ Tip: Make sure your branch is up-to-date before opening a PR.</p>
+      </blockquote>
+      <p><i class="fas fa-lightbulb"></i> Great for contributing to open-source projects!</p>
+    </section>
+
+    <section id="renaming-removing-files">
+      <h2><i class="fas fa-exchange-alt"></i> Renaming & Removing Files</h2>
+      <p>Git provides specific commands for renaming and removing files, ensuring these actions are properly tracked in your history.</p>
+      <h3>📝 Rename a File</h3>
+      <pre><code>git mv old_name.txt new_name.txt</code><button class="copy-btn">Copy</button></pre>
+      <p><strong>What it does:</strong> Renames a file in your working directory and stages the rename operation for the next commit. Git explicitly tracks this as a rename, not as a deletion of the old file and an addition of a new one.</p>
+      <p><strong>Purpose:</strong> To rename files within your Git repository while preserving their history. This is clearer than manually renaming and then using `git add` and `git rm` separately.</p>
+      <p><strong>State:</strong> Renames the file in your working directory and stages the rename. The file is now in the staging area, awaiting a commit.</p>
+      <p><i>Git tracks this as a rename (rather than delete + add).</i></p>
+
+      <h3>🗑️ Remove a File</h3>
+      <pre><code>git rm unwanted_file.txt</code><button class="copy-btn">Copy</button></pre>
+      <p><strong>What it does:</strong> Removes a file from your working directory and stages the deletion for the next commit. If the file is already staged or committed, `git rm` will record its removal.</p>
+      <p><strong>Purpose:</strong> To remove files from your project and its Git history, ensuring they are no longer tracked.</p>
+      <p><strong>State:</strong> Deletes the file from your working directory and stages its deletion. The change is now in the staging area.</p>
+      <h3>✅ Commit and Push</h3>
+      <pre><code>git commit -m "Renamed and removed files"
+git push</code><button class="copy-btn">Copy</button></pre>
+      <p><strong>What it does:</strong> These commands finalize the file renaming and removal operations. After using `git mv` or `git rm`, the changes are in the staging area. You then commit them locally and push them to the remote repository.</p>
+      <p><strong>Purpose:</strong> To record the file structural changes permanently in your project's history and synchronize these changes with the remote repository.</p>
+      <p><strong>State:</strong> `git commit` creates a new commit in your local repository with the recorded file changes. `git push` then updates the remote repository, making these changes available to others.</p>
+    </section>
+
+    <section id="branching-merging">
+      <h2><i class="fas fa-code-branch"></i> Branching & Merging</h2>
+      <p>Branches are fundamental to Git, allowing you to work on new features or bug fixes in isolation without affecting the main codebase. Merging then combines these isolated lines of development.</p>
+      <h3>🌱 Create a New Branch</h3>
+      <pre><code>git branch feature-xyz</code><button class="copy-btn">Copy</button></pre>
+      <p><strong>What it does:</strong> Creates a new pointer (a branch) to the current commit. It does not automatically switch you to this new branch.</p>
+      <p><strong>Purpose:</strong> To start a new line of development without interfering with the existing `main` (or other) branch. This is ideal for developing new features, fixing bugs, or experimenting.</p>
+      <p><strong>State:</strong> Creates a new branch reference in your local repository. Your working directory and staging area remain unchanged, and you stay on your current branch (`HEAD` still points to it).</p>
+
+      <h3>🔄 Switch to a Branch</h3>
+      <pre><code>git checkout feature-xyz</code><button class="copy-btn">Copy</button></pre>
+      <p><strong>What it does:</strong> Switches your working directory and staging area to reflect the state of the specified branch. Git effectively "moves" your `HEAD` pointer to the tip of the target branch.</p>
+      <p><strong>Purpose:</strong> To resume work on a specific feature, bug fix, or any other line of development. It allows you to context-switch between different aspects of your project.</p>
+      <p><strong>State:</strong> Updates your working directory and staging area to match the tree of the target branch. It also changes the `HEAD` pointer to point to the new branch.</p>
+
+      <h3>➕ Create & Switch in One Step</h3>
+      <pre><code>git checkout -b bugfix-login</code><button class="copy-btn">Copy</button></pre>
+      <p><strong>What it does:</strong> This is a convenient shorthand that combines `git branch <new-branch-name>` and `git checkout <new-branch-name>`. It creates a new branch and immediately switches you to it.</p>
+      <p><strong>Purpose:</strong> A common workflow for quickly starting new work on a dedicated branch.</p>
+      <p><strong>State:</strong> Creates a new branch reference and updates your `HEAD` pointer, working directory, and staging area to that new branch.</p>
+
+      <h3>🔁 Merge a Branch into Main</h3>
+      <pre><code>git checkout main
+git merge feature-xyz</code><button class="copy-btn">Copy</button></pre>
+      <p><strong>What it does:</strong> Integrates the changes from one branch (`feature-xyz`) into another (`main`). Git attempts to combine the histories of the two branches. If there are no conflicting changes, Git performs a fast-forward merge (if `main` hasn't diverged) or a 3-way merge (if `main` has new commits).</p>
+      <p><strong>Purpose:</strong> To bring completed features or bug fixes from a development branch back into the stable `main` branch.</p>
+      <p><strong>State:</strong> Creates a new merge commit (in the case of a 3-way merge) or simply moves the `main` branch pointer forward (in a fast-forward merge). This updates the `main` branch's history and the working directory.</p>
+      <p><strong>Why:</strong> Why merge? Merging is how parallel lines of development converge. It allows teams to work on different features simultaneously and then integrate their work back into a single, cohesive project. Why do merge conflicts happen? When two branches modify the same lines of code in different ways, Git cannot automatically decide which change to keep, leading to a conflict that requires manual resolution.</p>
+
+      <h3>🧹 Delete a Merged Branch</h3>
+      <pre><code>git branch -d feature-xyz</code><button class="copy-btn">Copy</button></pre>
+      <p><strong>What it does:</strong> Deletes the specified local branch. The `-d` flag is a "safe" delete, meaning it will only delete the branch if it has been fully merged into its upstream branch (or your current branch).</p>
+      <p><strong>Purpose:</strong> To clean up your local repository by removing branches that are no longer needed after their changes have been integrated.</p>
+      <p><strong>State:</strong> Removes the branch reference from your local `.git` directory. It does not affect the working directory or committed history.</p>
+      <p><strong>Why:</strong> Why delete branches after merging? It helps keep your repository clean and manageable, especially in projects with many short-lived feature branches. It prevents clutter and reduces confusion.</p>
+
+      <h3>🧭 See All Branches</h3>
+      <pre><code>git branch        # local only
+git branch -r     # remote only
+git branch -a     # all</code><button class="copy-btn">Copy</button></pre>
+      <p><strong>What it does:</strong> Displays a list of existing branches. The commands vary to show local, remote, or all branches.</p>
+      <ul>
+        <li>`git branch`: Lists all local branches in your repository. The current branch is typically highlighted with an asterisk.</li>
+        <li>`git branch -r`: Lists all remote-tracking branches (e.g., `origin/main`, `origin/feature-x`). These are read-only references to the state of branches on the remote repository.</li>
+        <li>`git branch -a`: Lists all branches, both local and remote-tracking.</li>
+      </ul>
+      <p><strong>Purpose:</strong> To see the full branching structure of your project, understand available lines of development, and check the status of remote branches.</p>
+      <p><strong>State:</strong> A read-only operation; it does not modify your repository.</p>
+
+      <h3>🌍 Push a Branch to GitHub</h3>
+      <pre><code>git push origin feature-xyz</code><button class="copy-btn">Copy</button></pre>
+      <p><strong>What it does:</strong> Pushes the specified local branch (`feature-xyz`) to the `origin` remote. If the branch doesn't exist on the remote, it will be created there.</p>
+      <p><strong>Purpose:</strong> To share your new feature branch with collaborators or to create a remote backup of your work on that specific branch.</p>
+      <p><strong>State:</strong> Updates the remote repository with the new branch and its commits. Your local repository remains unchanged.</p>
+      <p>You can also push all tags at once with `git push origin --tags`.</p>
+    </section>
+
+    <section id="stashing-cleaning">
+      <h2><i class="fas fa-box-open"></i> Stashing & Cleaning</h2>
+      <p>These commands help you manage your working directory and handle untracked changes, providing flexibility in your workflow.</p>
+      <h3>🧳 Temporarily Save Changes (Stash)</h3>
+      <pre><code>git stash</code><button class="copy-btn">Copy</button></pre>
+      <p><strong>What it does:</strong> Temporarily saves your uncommitted changes (both staged and unstaged) that are not ready to be committed. It cleans your working directory, making it match the `HEAD` commit, so you can switch branches or perform other operations without committing incomplete work.</p>
+      <p><strong>Purpose:</strong> To quickly save your work-in-progress when you need to switch contexts (e.g., to fix a bug on another branch, pull upstream changes) but aren't ready to commit your current changes.</p>
+      <p><strong>State:</strong> Cleans your working directory and staging area, storing the changes in a "stash" list within the `.git` directory. It does not affect your commit history.</p>
+      <p><i><i class="fas fa-archive"></i> Hides your uncommitted changes so you can switch branches safely.</i></p>
+
+      <h3>🎯 Reapply Stashed Changes</h3>
+      <pre><code>git stash pop</code><button class="copy-btn">Copy</button></pre>
+      <p><strong>What it does:</strong> Reapplies the most recently stashed changes to your working directory and staging area, and then removes that stash from the stash list.</p>
+      <p><strong>Purpose:</strong> To restore your saved work-in-progress after you've completed the temporary task that required stashing.</p>
+      <p><strong>State:</strong> Modifies your working directory and staging area to reintroduce the stashed changes. It removes the applied stash from the stash list. If the changes conflict with your current working directory, you might need to resolve them manually.</p>
+
+      <h3>🧼 Remove Untracked Files</h3>
+      <pre><code>git clean -f</code><button class="copy-btn">Copy</button></pre>
+      <p><strong>What it does:</strong> Removes untracked files from your working directory. Untracked files are those that Git sees but are not part of your repository's history (e.g., build artifacts, temporary files, new files you haven't `git add`ed yet).</p>
+      <p><strong>Purpose:</strong> To clean up your working directory by deleting files that Git doesn't track, often used to get a clean slate for a new build or to remove generated files.</p>
+      <p><strong>State:</strong> Deletes files from your working directory. This operation is **permanent** and irreversible. The `-f` (force) flag is required because it can remove unversioned data.</p>
+      <p><i><i class="fas fa-eraser"></i> Deletes untracked files. Use with caution!</i></p>
+      <p><strong>Why:</strong> Why use with caution? Because `git clean -f` permanently deletes files that are not under version control. If you have any unsaved work in untracked files, they will be gone forever. It's often safer to use `git clean -n` (dry run) first to see what *would* be deleted.</p>
+    </section>
+
+    <section id="rewriting-history">
+      <h2><i class="fas fa-history"></i> Rewriting History</h2>
+      <p>Git allows you to modify your project's commit history. Use these commands with caution, especially on shared branches, as they rewrite history and can cause issues for collaborators.</p>
+      <h3>🔄 Amend Last Commit</h3>
+      <pre><code>git commit --amend</code><button class="copy-btn">Copy</button></pre>
+      <p><strong>What it does:</strong> Allows you to modify the most recent commit. You can change its message, add forgotten staged changes, or both. Instead of creating a new commit, it replaces the previous one with the new version.</p>
+      <p><strong>Purpose:</strong> To fix typos in commit messages, add minor forgotten changes, or otherwise clean up your last commit before pushing it to a remote repository.</p>
+      <p><strong>State:</strong> Rewrites the last commit in your local branch's history. The old commit is discarded. This should only be used on commits that have *not* been pushed to a shared remote repository.</p>
+      <p><i><i class="fas fa-edit"></i> Edit the previous commit message or add forgotten changes.</i></p>
+
+      <h3>🚫 Undo a Commit (Soft Reset)</h3>
+      <pre><code>git reset --soft HEAD~1</code><button class="copy-btn">Copy</button></pre>
+      <p><strong>What it does:</strong> Moves the `HEAD` pointer (and your current branch pointer) back one commit, but keeps the changes from the undone commit in your *staging area*. Your working directory remains unchanged.</p>
+      <p><strong>Purpose:</strong> To "uncommit" a commit while preserving all its changes. This is useful if you committed too early, or if you want to combine several commits into one without losing the work.</p>
+      <p><strong>State:</strong> Updates the `HEAD` pointer and your branch pointer. The changes are moved from the commit history back to the staging area. Your working directory is unaffected.</p>
+      <p><i><i class="fas fa-undo"></i> Keeps changes but removes the commit.</i></p>
+      <p><strong>Why:</strong> Why `soft` reset? It's a non-destructive way to undo a commit, giving you the flexibility to re-stage and re-commit the changes, possibly with a different message or combined with other changes.</p>
+
+      <h3>💥 Hard Reset to Last Commit</h3>
+      <pre><code>git reset --hard HEAD</code><button class="copy-btn">Copy</button></pre>
+      <p><strong>What it does:</strong> Resets your `HEAD` pointer, staging area, and working directory to the state of the last commit (`HEAD`). This means all uncommitted changes (both staged and unstaged) are permanently discarded.</p>
+      <p><strong>Purpose:</strong> To completely discard all recent local changes and revert your working directory to a clean state matching the last commit. Useful for abandoning experimental changes.</p>
+      <p><strong>State:</strong> Rewrites your local branch's history, clears the staging area, and discards all changes in your working directory. This operation is **permanent** and cannot be easily undone.</p>
+      <p><i><i class="fas fa-exclamation-circle"></i> ⚠️ WARNING: This erases all changes permanently.</i></p>
+      <p><strong>Why:</strong> Why is `git reset --hard` dangerous? Because it irrevocably deletes all uncommitted changes. There is no trash bin or undo for files discarded by a hard reset. Always ensure you don't need the changes before using this command.</p>
+    </section>
+
+    <section id="logs-diffs">
+      <h2><i class="fas fa-list"></i> Logs & Diffs</h2>
+      <p>These commands are essential for inspecting your project's history and understanding the exact changes made between different points in time.</p>
+      <h3>📖 View Commit History</h3>
+      <pre><code>git log
+git log --oneline --graph --all</code><button class="copy-btn">Copy</button></pre>
+      <p><strong>What it does:</strong> Displays the commit history of your repository.
+      <ul>
+        <li>`git log`: Shows a detailed list of commits, including commit hash, author, date, and full commit message.</li>
+        <li>`git log --oneline`: Provides a concise one-line summary for each commit, showing a shortened hash and the first line of the commit message.</li>
+        <li>`git log --oneline --graph --all`: Combines the concise view with a visual ASCII-art graph representing the branching history and shows all branches (local and remote-tracking).</li>
+      </ul>
+      <p><strong>Purpose:</strong> To audit changes, find specific commits, understand the timeline of development, and visualize branching structures.</p>
+      <p><strong>State:</strong> A read-only operation; it does not alter your repository or working directory.</p>
+
+      <h3>🔍 View File Differences</h3>
+      <pre><code>git diff          # unstaged vs working dir
+git diff --staged  # staged vs last commit</code><button class="copy-btn">Copy</button></pre>
+      <p><strong>What it does:</strong> Shows the differences (changes) between various states of your files.</p>
+      <ul>
+        <li>`git diff`: Displays changes in your working directory that are *not* yet in the staging area. It shows you what you've modified since your last `git add`.</li>
+        <li>`git diff --staged` (or `git diff --cached`): Shows changes that are currently in the staging area but *not* yet in your last commit. It's a preview of what `git commit` will save.</li>
+        <li>(Implicit) `git diff HEAD`: Shows all changes in your working directory that are not yet committed (combining unstaged and staged changes).</li>
+      </ul>
+      <p><strong>Purpose:</strong> To review changes before staging or committing, ensuring you only include intended modifications. It's crucial for code reviews and self-auditing your work.</p>
+      <p><strong>State:</strong> A read-only operation; it doesn't modify any files or the repository history.</p>
+    </section>
+
+    <section id="tags">
+      <h2><i class="fas fa-tag"></i> Tags</h2>
+      <p>Git tags are pointers to specific points in your repository's history, typically used to mark release points (e.g., `v1.0.0`).</p>
+      <h3>🔖 Create a Tag</h3>
+      <pre><code>git tag v1.0.0</code><button class="copy-btn">Copy</button></pre>
+      <p><strong>What it does:</strong> Creates a lightweight tag named `v1.0.0` pointing to the current commit. Lightweight tags are just pointers to a commit. You can also create annotated tags (`git tag -a v1.0.0 -m "Release version 1.0"`) which store more metadata like the tagger's name, email, and date, and can have a message.</p>
+      <p><strong>Purpose:</strong> To mark a specific, important point in your project's history, typically a release version or a significant milestone.</p>
+      <p><strong>State:</strong> Creates a new tag reference in your local `.git` directory. It does not alter your working directory or commit history.</p>
+
+      <h3>🚀 Push Tags to GitHub</h3>
+      <pre><code>git push origin v1.0.0</code><button class="copy-btn">Copy</button></pre>
+      <p><strong>What it does:</strong> Pushes the specified local tag (`v1.0.0`) to the `origin` remote. By default, `git push` does not push tags.</p>
+      <p><strong>Purpose:</strong> To share your release markers or important points with collaborators by making them available on the remote repository.</p>
+      <p><strong>State:</strong> Updates the remote repository with the new tag. Your local repository remains unchanged.</p>
+      <p>You can also push all tags at once with `git push origin --tags`.</p>
+
+      <h3>📋 List Tags</h3>
+      <pre><code>git tag</code><button class="copy-btn">Copy</button></pre>
+      <p><strong>What it does:</strong> Displays a list of all existing tags in your local repository.</p>
+      <p><strong>Purpose:</strong> To see what release versions or important milestones have been marked in the project's history.</p>
+      <p><strong>State:</strong> A read-only operation; it does not modify your repository.</p>
+    </section>
+
+    <section id="rebasing-cherry-picking">
+      <h2><i class="fas fa-code-branch"></i> Rebasing & Cherry Picking</h2>
+      <p>These are advanced Git commands used for refining commit history. Use them with caution, especially `rebase`, as they rewrite history.</p>
+      <h3>🔄 Rebase a Branch</h3>
+      <pre><code>git checkout feature
+git rebase main</code><button class="copy-btn">Copy</button></pre>
+      <p><strong>What it does:</strong> The `git rebase` command takes a series of commits from your current branch (`feature` in this case) and "replays" them on top of another base branch (`main`). This effectively rewrites your branch's history, making it appear as if your changes were made directly on the new base.</p>
+      <p><strong>Purpose:</strong> To maintain a linear and clean project history by integrating upstream changes without creating merge commits. It's often used to keep a feature branch up-to-date with `main` before merging.</p>
+      <p><strong>State:</strong> Rewrites the commit history of the `feature` branch. Original commits on `feature` are discarded, and new commits with different hashes are created on top of `main`. This is a powerful, history-rewriting operation.</p>
+      <p><i><i class="fas fa-sync-alt"></i> Rewrites your branch history on top of another branch.</i></p>
+      <p><strong>Why:</strong> Why rebase instead of merge? Rebasing is often preferred for maintaining a cleaner, linear history without extraneous merge commits. This can make the project history easier to read and navigate. However, **never rebase commits that have already been pushed to a shared remote repository**, as this can cause significant problems for collaborators.</p>
+
+      <h3>🍒 Cherry Pick a Commit</h3>
+      <pre><code>git cherry-pick &lt;commit-hash&gt;</code><button class="copy-btn">Copy</button></pre>
+      <p><strong>What it does:</strong> Applies the changes introduced by a specific commit (`<commit-hash>`) from one branch onto your current branch. It essentially copies a single commit.</p>
+      <p><strong>Purpose:</strong> To selectively apply a specific bug fix or feature from one branch to another without merging the entire branch. Useful for hotfixes or applying a small, isolated change.</p>
+      <p><strong>State:</strong> Creates a *new* commit on your current branch that introduces the same changes as the original cherry-picked commit. The original commit remains unchanged. This does not rewrite history, but adds a new commit.</p>
+      <p><i><i class="fas fa-copy"></i> Applies a specific commit to your current branch.</i></p>
+      <p><strong>Why:</strong> Why cherry-pick? It allows for surgical application of changes. If you need a quick bug fix from another branch but don't want to merge the entire branch (which might contain unfinished features), cherry-picking is the ideal solution.</p>
+    </section>
+
+    <section id="git-submodules">
+      <h2><i class="fas fa-puzzle-piece"></i> Git Submodules</h2>
+      <p>Git submodules allow you to embed one Git repository inside another as a subdirectory, maintaining separate versions and histories for each.</p>
+      <h3>➕ Add a Submodule</h3>
+      <pre><code>git submodule add https://github.com/user/repo.git path/to/module</code><button class="copy-btn">Copy</button></pre>
+      <p><strong>What it does:</strong> Adds a new submodule to your current repository. It clones the specified repository (`https://github.com/user/repo.git`) into the designated `path/to/module` directory and records the submodule's commit (not branch) in your parent repository's history.</p>
+      <p><strong>Purpose:</strong> To manage external dependencies (libraries, plugins, shared code) that are themselves separate Git repositories. This allows the main project to specify a particular version of the dependency.</p>
+      <p><strong>State:</strong> Creates the submodule directory and clones the submodule's repository into it. It also adds a `.gitmodules` file (which tracks submodule configurations) and a new entry in your staging area, which points to the specific commit of the submodule you've added.</p>
+
+      <h3>🔄 Init & Update</h3>
+      <pre><code>git submodule init
+git submodule update</code><button class="copy-btn">Copy</button></pre>
+      <p><strong>What it does:</strong> These commands are typically used after cloning a repository that contains submodules, or when you pull changes that introduce new submodules.</p>
+      <ul>
+        <li>`git submodule init`: Initializes the submodules recorded in your `.gitmodules` file. It sets up the configuration for each submodule.</li>
+        <li>`git submodule update`: Clones the submodule repositories into their respective paths and checks out the specific commit recorded by the superproject.</li>
+      </ul>
+      <p><strong>Purpose:</strong> To ensure that submodules are correctly set up and checked out to the versions specified by the parent repository.</p>
+      <p><strong>State:</strong> `git submodule init` configures the submodule. `git submodule update` populates the submodule directories and checks out specific commits within them. They affect your working directory but not your main repository's commit history directly.</p>
+      <p><i><i class="fas fa-cubes"></i> Submodules let you include another Git repo inside your repo (e.g., plugins, libs).</i></p>
+      <p><strong>Why:</strong> Why use submodules? They are useful for managing external dependencies that are versioned independently and need to be pulled in at specific versions. However, they can add complexity to a project, and alternatives like package managers are often preferred for common dependencies.</p>
+    </section>
+
+    <section id="git-aliases">
+      <h2><i class="fas fa-magic"></i> Git Aliases</h2>
+      <p>Git aliases allow you to create custom shortcuts for Git commands, saving keystrokes and increasing efficiency.</p>
+      <pre><code>git config --global alias.st status
+git config --global alias.co checkout
+git config --global alias.br branch
+git config --global alias.cm "commit -m"</code><button class="copy-btn">Copy</button></pre>
+      <p><strong>What it does:</strong> These commands add new aliases to your global Git configuration. For example, `alias.st status` means that whenever you type `git st`, Git will execute `git status`.</p>
+      <p><strong>Purpose:</strong> To create shorter, more memorable commands for frequently used Git operations, improving your command-line workflow.</p>
+      <p><strong>State:</strong> Modifies your global Git configuration file (`~/.gitconfig`). It does not affect your repository's history or working directory.</p>
+      <p>Then use:</p>
+      <pre><code>git st        # Instead of git status
+git co main    # Instead of git checkout main</code><button class="copy-btn">Copy</button></pre>
+      <p><strong>Why:</strong> Why use aliases? Aliases reduce typing, minimize errors, and can make complex command sequences easier to execute. They personalize your Git experience.</p>
+    </section>
+
+    <section id="collaborating-with-others">
+      <h2><i class="fas fa-users"></i> Collaborating with Others</h2>
+      <p>These commands and concepts are crucial when working in a team or contributing to open-source projects.</p>
+      <h3>🍴 Fork a Repository</h3>
+      <p>On GitHub, click <strong>Fork</strong> to create your own copy of someone else's repo.</p>
+      <p><strong>What it does:</strong> A "fork" is a server-side copy of a repository. When you fork a repository on GitHub (or similar platforms), you create a personal copy of that repository under your own account.</p>
+      <p><strong>Purpose:</strong> Forks are primarily used in open-source contributions. Instead of directly cloning and pushing to the original repository (which you likely don't have write access to), you work on your fork and then propose changes back to the original via a Pull Request.</p>
+      <p><strong>State:</strong> Creates a new, independent copy of the original repository on the remote hosting service (e.g., GitHub). It doesn't affect your local machine directly.</p>
+
+      <h3>🌲 Clone Your Fork</h3>
+      <pre><code>git clone https://github.com/yourusername/repo.git
+cd repo</code><button class="copy-btn">Copy</button></pre>
+      <p><strong>What it does:</strong> After forking a repository, you clone *your* fork to your local machine. This creates a local copy of the repository that you own and can push changes to.</p>
+      <p><strong>Purpose:</strong> To get a working local copy of your forked repository, allowing you to make changes, commit them, and push them back to your fork.</p>
+      <p><strong>State:</strong> Creates a new directory with the repository files on your local machine and sets your fork as the `origin` remote.</p>
+
+      <h3>🔀 Add the Original Repository as "Upstream"</h3>
+      <pre><code>git remote add upstream https://github.com/original/repo.git</code><button class="copy-btn">Copy</button></pre>
+      <p><strong>What it does:</strong> Adds a new remote connection named `upstream` that points to the original repository from which you created your fork.</p>
+      <p><strong>Purpose:</strong> To easily fetch and merge changes from the original project into your local fork, keeping your fork synchronized with the upstream repository.</p>
+      <p><strong>State:</strong> Adds a new remote configuration to your local Git repository. It does not fetch any data yet.</p>
+      <p><i>This helps you keep your fork updated with the original.</i></p>
+      <p><strong>Why:</strong> Why add an `upstream` remote? To keep your fork current. The original repository will likely continue to receive updates. By having an `upstream` remote, you can pull those changes into your fork, preventing it from becoming outdated and simplifying future contributions.</p>
+
+      <h3>🔄 Sync Your Fork</h3>
+      <pre><code>git fetch upstream
+git checkout main
+git merge upstream/main</code><button class="copy-btn">Copy</button></pre>
+      <p><strong>What it does:</strong> This sequence updates your local `main` branch with the latest changes from the original `upstream` repository.</p>
+      <ul>
+        <li>`git fetch upstream`: Downloads new commits and branches from the `upstream` remote but does not integrate them into your local branches.</li>
+        <li>`git checkout main`: Switches to your local `main` branch.</li>
+        <li>`git merge upstream/main`: Merges the `upstream/main` branch (which is now updated with the latest changes from the original repository) into your local `main` branch.</li>
+      </ul>
+      <p><strong>Purpose:</strong> To bring your local fork up-to-date with the main project's development, ensuring your work is based on the latest version.</p>
+      <p><strong>State:</strong> Fetches remote data, updates your local `main` branch, and potentially creates a merge commit if your local `main` has diverged from `upstream/main`.</p>
+
+      <h3>📤 Create a Pull Request (PR)</h3>
+      <p>A Pull Request (PR) is a mechanism used on platforms like GitHub to propose changes from one branch (often a feature branch on your fork) to another (typically the `main` branch of the original repository).</p>
+      <p>1. Push your changes to your forked repo:</p>
+      <pre><code>git push origin your-branch-name</code><button class="copy-btn">Copy</button></pre>
+      <p><strong>What it does:</strong> Publishes your local feature branch to your personal fork on GitHub.</p>
+      <p><strong>Purpose:</strong> To make your work available on the remote so you can create a Pull Request from it.</p>
+      <p>2. On GitHub, click <strong>"Compare & pull request"</strong>.</p>
+      <p>3. Write a clear title and description.</p>
+      <p>4. Submit it for review.</p>
+      <p><strong>Purpose of a PR:</strong> A PR serves as a discussion forum for your proposed changes. Other developers can review your code, provide feedback, suggest improvements, and ultimately decide whether to merge your changes into the main project.</p>
+      <p><strong>Why:</strong> Why use Pull Requests? They are the standard for collaborative code review and integration. They ensure code quality, facilitate knowledge sharing, and prevent accidental breaking changes to the main codebase.</p>
+      <blockquote>
+        <p>✅ Tip: Make sure your branch is up-to-date before opening a PR.</p>
+      </blockquote>
+    </section>
+
+    <section id="resolving-merge-conflicts">
+      <h2><i class="fas fa-exclamation-triangle"></i> Resolving Merge Conflicts</h2>
+      <p>Merge conflicts occur when Git cannot automatically reconcile different changes made to the same part of a file in two different branches that you are trying to merge.</p>
+      <p>When Git can't merge changes automatically, it creates <strong>conflict markers</strong> in the file:</p>
+      <pre><code>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
+your version
+=======
+their version
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; branch-name</code><button class="copy-btn">Copy</button></pre>
+      <p><strong>What it does:</strong> Git inserts these markers into the conflicting file.
+      <ul>
+        <li>`<<<<<<< HEAD`: Marks the beginning of the conflicting change from your current branch (`HEAD`).</li>
+        <li>`=======`: Separates your changes from the incoming changes.</li>
+        <li>`>>>>>>> branch-name`: Marks the end of the conflicting change from the merging branch (`branch-name`).</li>
+      </ul>
+      <p><strong>Purpose:</strong> These markers signal to you that manual intervention is required to resolve the conflict. Git needs you to decide which version of the code to keep.</p>
+      <p><strong>State:</strong> The file is modified in your working directory with conflict markers. The merge operation is paused, and the file is marked as "unmerged" in the staging area.</p>
+      <h3>🧩 To Resolve:</h3>
+      <p>1. Edit the file to fix the conflict.</p>
+      <p><strong>What it does:</strong> You manually open the conflicting file, remove the `<<<<<<<`, `=======`, and `>>>>>>>` markers, and edit the code to combine the desired changes from both versions.</p>
+      <p><strong>Purpose:</strong> To tell Git how the conflicting changes should be resolved, ensuring the final code is correct and functional.</p>
+      <p><strong>State:</strong> Modifies the file in your working directory. Once you're satisfied, the file moves from "unmerged" to "modified" in Git's internal state.</p>
+      <p>2. Stage it again:</p>
+      <pre><code>git add conflicted_file</code><button class="copy-btn">Copy</button></pre>
+      <p><strong>What it does:</strong> After manually resolving the conflicts in the file, you `git add` the file to mark it as resolved and move it to the staging area.</p>
+      <p><strong>Purpose:</strong> To inform Git that you have successfully resolved the conflicts in this file and that it's ready for committing the merge.</p>
+      <p>3. Commit the resolution:</p>
+      <pre><code>git commit</code><button class="copy-btn">Copy</button></pre>
+      <p><strong>What it does:</strong> Creates a new merge commit, finalizing the merge operation and incorporating all resolved changes into the history.</p>
+      <p><strong>Purpose:</strong> To record the successful merge and the resolution of any conflicts in your project's history.</p>
+      <p><strong>State:</strong> Creates a new commit in your local repository. The `HEAD` pointer moves to this new merge commit. The staging area is cleared.</p>
+      <p><strong>Why:</strong> Why is resolving conflicts critical? Unresolved conflicts mean your merge operation is incomplete. Git relies on you to manually reconcile divergent histories to create a coherent new state. Skipping this step would result in a broken codebase.</p>
+    </section>
+
+    <section id="best-practices">
+      <h2><i class="fas fa-star"></i> Best Practices</h2>
+      <p>Follow these guidelines for a smoother and more effective Git workflow:</p>
+      <p>✅ <strong>Commit messages</strong> should be clear and descriptive:
+        <br><i>"Fix: resolve login token expiration issue"</i></p>
+      <p><strong>Why:</strong> Good commit messages serve as documentation, making it easy to understand the purpose of changes, track bugs, and revert specific features if needed. They are crucial for team collaboration and future maintenance.</p>
+      <p>✅ <strong>Use branches</strong> for every feature or bug fix.
+        <br>Keeps <code>main</code> clean and deployable.</p>
+      <p><strong>Why:</strong> Branches allow for isolated development, preventing unfinished or buggy code from affecting the stable `main` branch. This enables parallel work and safer experimentation.</p>
+      <p>✅ <strong>Pull often</strong> to avoid diverging too far from the main branch.</p>
+      <p><strong>Why:</strong> Frequent pulls (or fetches followed by rebase/merge) keep your local branch updated with the latest changes from collaborators. This reduces the size and complexity of potential merge conflicts.</p>
+      <p>✅ <strong>Push regularly</strong> so work isn't lost.</p>
+      <p><strong>Why:</strong> Regular pushes ensure your work is backed up to the remote repository. In case of local machine failure, your progress is safe. It also allows teammates to see and review your work promptly.</p>
+      <p>✅ <strong>Don't commit sensitive files</strong> (like <code>.env</code>, API keys).
+    </p>
+      <p><strong>Why:</strong> Sensitive information (passwords, API keys, configuration files with credentials) should never be committed to Git, especially in public repositories. It poses a significant security risk. Use environment variables or secure configuration management systems instead.</p>
+      <p>✅ <strong>Use <code>.gitignore</code></strong> to exclude files that shouldn't be tracked.
+    </p>
+      <p><strong>Why:</strong> The `.gitignore` file tells Git which files or directories to ignore. This keeps your repository clean by excluding generated files (e.g., `node_modules`, build outputs), temporary files, and personal configurations that are irrelevant to the project's version control. This prevents accidental commits of unnecessary or sensitive data.</p>
+
+      <h3>📄 Sample <code>.gitignore</code> for Node.js</h3>
+      <pre><code>node_modules/
+.env
+*.log
+.DS_Store</code><button class="copy-btn">Copy</button></pre>
+      <p><strong>Explanation:</strong> This example `.gitignore` file for a Node.js project excludes:
+      <ul>
+        <li>`node_modules/`: The directory where npm/yarn installs project dependencies. These are usually large and can be recreated from `package.json`.</li>
+        <li>`.env`: Environment variable files, often containing sensitive API keys or database credentials.</li>
+        <li>`*.log`: Any file ending with `.log`, commonly generated for application logging.</li>
+        <li>`.DS_Store`: A hidden file created by macOS to store custom attributes of folders.</li>
+      </ul>
+      </p>
+    </section>
+
+    <section id="final-words">
+      <h2><i class="fas fa-flag-checkered"></i> Final Words</h2>
+      <p>You got it! Here's a strong, inspiring, and professional ending to cap off your README:</p>
+      <p>Mastering Git and GitHub is more than just learning commands — it's about developing a workflow that brings order, collaboration, and control to your development process. Whether you're building solo projects, working on a team, or contributing to open-source, <strong>Git is your time machine, safety net, and collaboration tool all in one.</strong></p>
+      <p>Take your time to <strong>experiment, break things, fix them, and learn</strong> — that's how real growth happens.</p>
+      <blockquote>
+        <p>🧠 <i>"The best developers aren't those who never make mistakes — they're the ones who track, manage, and learn from them."</i></p>
+      </blockquote>
+      <p>Keep pushing code, keep pulling knowledge, and let your commit history tell the story of your evolution as a developer. 🌱✨</p>
+    </section>
+
+    <section id="stay-connected">
+      <h2><i class="fas fa-handshake"></i> Stay Connected</h2>
+      <p>If you found this guide helpful, give the repository a ⭐ on GitHub, share it with others, or fork it and build your own version!</p>
+      <p>Have suggestions or want to contribute? Open a pull request — <strong>collaboration starts here.</strong> 💡</p>
+      <hr>
+      <p>Ready to take the next step?
+        <br><strong>"Go build. Break things. Fix them. Version everything."</strong></p>
+      <p>Happy coding! 💻🔥</p>
+    </section>
+    <!-- Main content ends -->
+  </main>
+</div>
+
+<footer>
+    <div class="footer-content">
+            <p><span class="highlight">Atharv Yadav</span> - Developer & Technical Writer</p>
+    <p class="footer-meta">
+      Building secure, intelligent, and scalable solutions in Application Development, cybersecurity, and cloud.<br>
+      <i class="fas fa-map-marker-alt"></i> India &nbsp;|&nbsp; <i class="fas fa-graduation-cap"></i> Ajeenkya DY Patil University
+    </p>
+            <div class="note" style="text-align: center;">
+      
+      <span><i class="fas fa-lightbulb"></i> This guide is updated to reflect the latest Git-GitHub features and best practices to the best of my abilities. Feel free to contribute or suggest improvements!</span>
+        </div>
+        <div class="footer-links">
+            <a href="https://github.com/atharvbyadav" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+            <a href="https://github.com/atharvbyadav/Git-GitHub" target="_blank"><i class="fas fa-book"></i> Repository</a>
+            <a href="https://github.com/atharvbyadav/Git-GitHub/issues" target="_blank"><i class="fas fa-bug"></i> Report Issues</a>
+    </div>
+        </div>
+        <div class="copyright">
+    © 2025 Atharv Yadav. All rights reserved.
+        </div>
+  <div class="footer-made">
+    Made with <i class="fas fa-heart"></i> for the developer community
+    </div>
+</footer>
+
+<button id="backToTop" title="Back to Top" aria-label="Back to Top"><i class="fas fa-arrow-up"></i></button>
+
+<script>
+  // Function to show a specific section and hide others
+  function showSection(sectionId) {
+    const allSections = document.querySelectorAll("main section");
+    const targetSection = document.getElementById(sectionId);
+    
+    // First hide all sections
+    allSections.forEach(section => {
+      section.classList.remove("active-section");
+      // Ensure sections are hidden immediately
+      section.style.display = "none";
+    });
+
+    // Then show the target section
+    if (targetSection) {
+      // Small delay to ensure smooth transition
+      requestAnimationFrame(() => {
+        targetSection.style.display = "block";
+        // Force a reflow
+        targetSection.offsetHeight;
+      targetSection.classList.add("active-section");
+      });
+    }
+
+    // Update TOC active state
+    document.querySelectorAll("#toc a").forEach(link => {
+      link.classList.remove("active");
+      if (link.getAttribute("href") === `#${sectionId}`) {
+        link.classList.add("active");
+      }
+    });
+
+    // Scroll to top of main content
+    document.querySelector("main").scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  // Event listeners for TOC links
+  document.querySelectorAll("#toc a").forEach(link => {
+    link.addEventListener("click", function(event) {
+      event.preventDefault();
+      const sectionId = this.getAttribute("href").substring(1);
+      showSection(sectionId);
+    });
+  });
+
+  // Initial load: show the first section
+  document.addEventListener("DOMContentLoaded", () => {
+    const firstLink = document.querySelector("#toc a");
+    if (firstLink) {
+      const firstSectionId = firstLink.getAttribute("href").substring(1);
+      showSection(firstSectionId);
+    }
+  });
+
+  // Search functionality
+  const searchInput = document.getElementById("search");
+  const tocListItems = document.querySelectorAll("#toc li");
+
+  searchInput.addEventListener("input", () => {
+    const term = searchInput.value.trim().toLowerCase();
+    const content = document.querySelector("main");
+    removeHighlights(content);
+
+    // Filter TOC links based on search term
+    tocListItems.forEach(item => {
+      const link = item.querySelector("a");
+      if (link) {
+        const linkText = link.textContent.toLowerCase();
+        if (term === "" || linkText.includes(term)) {
+          item.style.display = "flex"; // Show the list item
+        } else {
+          item.style.display = "none"; // Hide the list item
+        }
+      }
+    });
+
+    if (term) {
+      // Search and highlight in all sections
+      document.querySelectorAll("main section").forEach(section => {
+        highlightTerm(section, term);
+      });
+    }
+  });
+
+  // Function to highlight a term within a container
+  function highlightTerm(container, term) {
+    const regex = new RegExp(`(${term})`, "gi");
+    function walk(node) {
+      if (node.nodeType === 3) {
+        const parentTagName = node.parentNode.tagName;
+        if (parentTagName === 'CODE' || parentTagName === 'PRE' || 
+            parentTagName === 'SCRIPT' || parentTagName === 'STYLE') {
+          return;
+        }
+
+        const match = node.data.match(regex);
+        if (match) {
+          const span = document.createElement("span");
+          span.innerHTML = node.data.replace(regex, "<mark>$1</mark>");
+          node.parentNode.replaceChild(span, node);
+        }
+      } else if (node.nodeType === 1 && node.childNodes && 
+                !["SCRIPT", "STYLE"].includes(node.tagName)) {
+        [...node.childNodes].forEach(walk);
+      }
+    }
+    walk(container);
+  }
+
+  // Function to remove all highlights
+  function removeHighlights(container) {
+    container.querySelectorAll("mark").forEach(mark => {
+      const text = document.createTextNode(mark.textContent);
+      mark.parentNode.replaceChild(text, mark);
+    });
+  }
+
+  // Back to Top functionality
+  const backToTop = document.getElementById("backToTop");
+  window.onscroll = () => {
+    backToTop.style.display = window.scrollY > 300 ? "block" : "none";
+  };
+  backToTop.onclick = () => window.scrollTo({ top: 0, behavior: "smooth" });
+
+  // Copy Button functionality
+  document.querySelectorAll("pre").forEach(block => {
+    const button = document.createElement("button");
+    button.className = "copy-btn";
+    const buttonText = document.createElement('span');
+    buttonText.textContent = "Copy";
+    button.appendChild(buttonText);
+    block.appendChild(button);
+
+    button.addEventListener("click", () => {
+      const code = block.querySelector("code").innerText;
+      navigator.clipboard.writeText(code).then(() => {
+        button.classList.add('copied'); // Add class for visual feedback
+        button.querySelector('span').textContent = "Copied!"; // Change text to indicate copied
+
+        setTimeout(() => {
+          button.classList.remove('copied'); // Remove class
+          button.querySelector('span').textContent = "Copy"; // Change text back
+        }, 1500);
+      });
+    });
+  });
+</script>
+
 </body>
 </html>
