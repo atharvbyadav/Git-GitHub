@@ -3,13 +3,27 @@
 Welcome to your **all-in-one guide** to mastering Git and GitHub! Whether you're a beginner just starting out or an experienced developer brushing up on advanced features, this guide covers everything with easy-to-understand commands, explanations, and best practices.
 
 <p align="center">
+  <!-- GitHub Stats -->
   <img src="https://img.shields.io/github/stars/atharvbyadav/Git-GitHub?color=yellow&style=for-the-badge" alt="GitHub Stars">
   <img src="https://img.shields.io/github/forks/atharvbyadav/Git-GitHub?color=orange&style=for-the-badge" alt="GitHub Forks">
-  <img src="https://img.shields.io/github/repo-size/atharvbyadav/Git-GitHub?color=blue&style=for-the-badge" alt="Repo Size">
+  <img src="https://img.shields.io/github/issues/atharvbyadav/Git-GitHub?style=for-the-badge" alt="Issues">
+  <img src="https://img.shields.io/github/pull-requests/atharvbyadav/Git-GitHub?style=for-the-badge" alt="PRs">
   <img src="https://img.shields.io/github/last-commit/atharvbyadav/Git-GitHub?color=brightgreen&style=for-the-badge" alt="Last Commit">
   <img src="https://img.shields.io/github/license/atharvbyadav/Git-GitHub?style=for-the-badge" alt="License">
-  <img src="https://img.shields.io/badge/Made%20with-Markdown-1f425f.svg?style=for-the-badge" alt="Markdown">
+
+  <!-- General Tech Stack / Topic Tags -->
+  <img src="https://img.shields.io/badge/Markdown-%23f7df1e.svg?style=for-the-badge&logo=markdown&logoColor=black" alt="Markdown">
+  <img src="https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white" alt="Git">
+  <img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white" alt="GitHub">
+  <img src="https://img.shields.io/badge/Open%20Source-%2300b894?style=for-the-badge&logo=open-source-initiative&logoColor=white" alt="Open Source">
+  <img src="https://img.shields.io/badge/Version%20Control-E44D27?style=for-the-badge&logo=git&logoColor=white" alt="Version Control">
+
+  <!-- Extra Utility Badges -->
+  <img src="https://img.shields.io/badge/Beginner%20Friendly-33CC99?style=for-the-badge" alt="Beginner Friendly">
+  <img src="https://img.shields.io/badge/Documentation%20Project-3366FF?style=for-the-badge" alt="Documentation Project">
+  <img src="https://img.shields.io/badge/Contributions%20Welcome-ff69b4?style=for-the-badge" alt="Contributions Welcome">
 </p>
+
 
 > 📌 *Version control is not just a tool — it's a discipline. The cleaner your history, the clearer your future.*
 
