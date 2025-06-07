@@ -2,6 +2,15 @@
 
 Welcome to your **all-in-one guide** to mastering Git and GitHub! Whether you're a beginner just starting out or an experienced developer brushing up on advanced features, this guide covers everything with easy-to-understand commands, explanations, and best practices.
 
+<p align="center">
+  <img src="https://img.shields.io/github/stars/atharvbyadav/Git-GitHub?color=yellow&style=for-the-badge" alt="GitHub Stars">
+  <img src="https://img.shields.io/github/forks/atharvbyadav/Git-GitHub?color=orange&style=for-the-badge" alt="GitHub Forks">
+  <img src="https://img.shields.io/github/repo-size/atharvbyadav/Git-GitHub?color=blue&style=for-the-badge" alt="Repo Size">
+  <img src="https://img.shields.io/github/last-commit/atharvbyadav/Git-GitHub?color=brightgreen&style=for-the-badge" alt="Last Commit">
+  <img src="https://img.shields.io/github/license/atharvbyadav/Git-GitHub?style=for-the-badge" alt="License">
+  <img src="https://img.shields.io/badge/Made%20with-Markdown-1f425f.svg?style=for-the-badge" alt="Markdown">
+</p>
+
 > 📌 *Version control is not just a tool — it's a discipline. The cleaner your history, the clearer your future.*
 
 ---
