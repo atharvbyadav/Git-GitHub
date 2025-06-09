@@ -2,7 +2,7 @@
 
 Welcome to your **all-in-one guide** to mastering Git and GitHub! Whether you're a beginner just starting out or an experienced developer brushing up on advanced features, this guide covers everything with easy-to-understand commands, explanations, and best practices.
 
-*Visit the live site at* [Git-GitHub Guide](https://atharvbyadav.github.io/Git-GitHub/)
+*Visit the live site at* [https://atharvbyadav.github.io/Git-GitHub/](https://atharvbyadav.github.io/Git-GitHub/)
 <p align="center">
   <!-- General Tech Stack / Topic Tags -->
   <img src="https://img.shields.io/badge/Markdown-%23f7df1e.svg?style=for-the-badge&logo=markdown&logoColor=black" alt="Markdown">
